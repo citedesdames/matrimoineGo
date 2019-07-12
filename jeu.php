@@ -16,8 +16,8 @@
     <link rel="stylesheet" href="css/style.css">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/zingtouch/1.0.6/zingtouch.js"></script>
-    <!--autre ligne avant d'apres nav-->
-<!--    <script src='js/zingtouch.min.js'></script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+ 
 
     <!----------------------------------- osm bulding --------------------------------->
     <script src='https://api.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.js'></script>
@@ -41,26 +41,43 @@
 //        activeRegion.bind(childElement, 'pan', function(event) {
 //            //Perform Operations
 //        });
-        var counter = 0;
-var region = new ZingTouch.Region(document.getElementById('body3'));
-var target = document.getElementById('photoFemme');
-
-region.bind(target, 'pan', function(e){
-  counter++;
-  document.getElementById('output').innerHTML = 
-    "Input currently panned: " + counter + " times";
-})
+//        var counter = 0;
+//var region = new ZingTouch.Region(document.getElementById('body3'));
+//var target = document.getElementById('photoFemme');
+//
+//region.bind(target, 'pan', function(e){
+//  counter++;
+//  document.getElementById('output').innerHTML = 
+//    "Input currently panned: " + counter + " times";
+//})
 
     </script>
-
-<script type="text/javascript">
-     $("#questionMark").click( function() {
-            console.log("hover percu");
-         $(".interoN").addClass("interoY");   
-     }, function(){
-         $(".interoN").removeClass("interoY");
+ 
+<script type="text/javascript">$(document).ready(function() {
+        
+            $(".questionMark").click( function() {
+            console.log("click percu");
+         $(this).parent().find(".interoN").addClass("interoY");   
      })
-</script>
+        $(document).click( function(){
+                             console.log(("to"));
+            if ($(".interoY").length>=1){
+                 $(".interoN").removeClass("interoY"); 
+                            console.log(("tata"));
+
+                }
+             
+            
+             
+         
+         })
+ 
+         
+         
+         
+         
+         
+});</script>
     <!------------------------------------------fin zingtouch-------------------------->
 </head>
 
@@ -77,7 +94,7 @@ region.bind(target, 'pan', function(e){
 
         
 
-        $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude FROM jcdd_contenu WHERE jeu = 1";
+        $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice  FROM jcdd_contenu WHERE jeu = 1";
         
         
         $req = $link->prepare($sql);
@@ -85,24 +102,28 @@ region.bind(target, 'pan', function(e){
         
 
         while($data = $req -> fetch()){
-            echo '<div  id="'.$data['id'].'"><div class="relative"><img src="'.$data['photo_femme'].'" id="photoFemme" alt="'.$data['femme'].'"><img id="questionMark" src="img/icon/question-mark-red.png" alt="bouton qui est-ce" title="qui est-ce ?">
-</div></div>';
-            $lg= $data['longitude'];
-            $lt= $data['latitude'];
-            }
-         var_dump ($data);
-        ?>
-    </div>
-    <div class="interoN">
+            echo '<div  id="'.$data['id'].'" class="relative"><img src="'.$data['photo_femme'].'" class="photoFemme" alt="'.$data['femme'].'"><img class="questionMark" src="img/icon/question-mark.png" alt="bouton qui est-ce" title="qui est-ce ?">
+
+
+            
+            <div class="interoN">
                    
-                  <?php            
-// echo' <strong style="color:#D07A25; font-size: 1.5rem">'.data'</strong> ' ?>
                     <strong style="color:#D07A25; font-size: 1.5rem"></strong> 
                     <br>
-                    Un portrait chinois consiste à déceler certains aspects de la personnalité d'un individu ou d'identifier des goûts ou des préférences personnelles, au travers d'un questionnaire basé sur l'identification à des personnes, des objets ou des éléments divers.
+                   '.$data['indice'].'
                     <br>
 
                 </div>
+
+            </div>';
+            $lg= $data['longitude'];
+            $lt= $data['latitude'];
+            }
+        
+
+        ?>
+    </div>
+    
     <div id="map" style="height:100vh;"></div>
     <script type="text/javascript">
         var map = new OSMBuildings({

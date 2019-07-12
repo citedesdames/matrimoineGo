@@ -1,6 +1,7 @@
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
+
 .body2 {
     background-color: #FC706D;
     margin: 0;
@@ -13,8 +14,8 @@
     display: flex;
     flex-wrap: nowrap;
     justify-content: center;
-    
-/*    flex-direction: column;*/
+
+    /*    flex-direction: column;*/
 
 }
 
@@ -34,28 +35,29 @@
     position: relative;
     overflow: hidden;
     border: solid 3px #DD4A4A;
-    background-color: rgba(229,202,174,0.3);
+    background-color: rgba(229, 202, 174, 0.3);
 }
 
 .titreJeu {
     color: white;
     position: absolute;
-     text-align: center;
-/*    max-width: 40%;*/
+    text-align: center;
+    /*    max-width: 40%;*/
     top: 42%;
     transform: translateY(-50%);
     right: 5%;
     left: 5%;
-    background-color: rgba(103,105,107,0.8);
+    background-color: rgba(103, 105, 107, 0.8);
     padding: 5px;
     border-radius: 5px;
-    font-family:'Paytone One';
+    font-family: 'Paytone One';
 
 }
-.centre{
+
+.centre {
     display: flex;
     justify-content: center;
-/*    transform: scale(1.1);
+    /*    transform: scale(1.1);
     transition: 500ms;*/
 }
 
@@ -69,14 +71,15 @@
 
 #body3 {
     background-color: #FC706D;
-    
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
+
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
 
 }
-.menuFemme{
+
+.menuFemme {
     background-color: #FC706D;
     position: fixed;
     width: 100%;
@@ -86,25 +89,27 @@
     display: flex;
     justify-content: space-around;
 }
-#photoFemme{
+
+.photoFemme {
     position: relative;
     top: 0px;
     z-index: 10;
     max-width: 100%;
-/*    min-height: 22vh;*/
+    /*    min-height: 22vh;*/
 }
-#map {
-      width: 100%;
-      height: 100vh;
-    }
 
-#questionMark{
+#map {
+    width: 100%;
+    height: 100vh;
+}
+
+.questionMark {
     position: absolute;
     z-index: 11;
     max-width: 20%;
-    left: auto;
-    
+    right: 0px;
 }
+
 .interoY {
     display: block !important;
 }
@@ -123,6 +128,6 @@
     display: none;
 }
 
-.relative{
+.relative {
     position: relative;
 }
