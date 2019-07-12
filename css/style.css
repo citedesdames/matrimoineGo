@@ -1,0 +1,128 @@
+* {
+  box-sizing: border-box;
+}
+.body2 {
+    background-color: #FC706D;
+    margin: 0;
+    padding: 0;
+
+}
+
+.container {
+    position: relative;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    
+/*    flex-direction: column;*/
+
+}
+
+.titreBlanc {
+    font-family: 'rouge Script';
+    color: white;
+    font-size: 4rem;
+    text-align: center;
+    width: 100%;
+
+
+}
+
+.flexBox {
+    width: 50%;
+    margin: 2%;
+    position: relative;
+    overflow: hidden;
+    border: solid 3px #DD4A4A;
+    background-color: rgba(229,202,174,0.3);
+}
+
+.titreJeu {
+    color: white;
+    position: absolute;
+     text-align: center;
+/*    max-width: 40%;*/
+    top: 42%;
+    transform: translateY(-50%);
+    right: 5%;
+    left: 5%;
+    background-color: rgba(103,105,107,0.8);
+    padding: 5px;
+    border-radius: 5px;
+    font-family:'Paytone One';
+
+}
+.centre{
+    display: flex;
+    justify-content: center;
+/*    transform: scale(1.1);
+    transition: 500ms;*/
+}
+
+.box {
+    height: 40vh;
+    margin: auto;
+}
+
+/*-------------------parti jeu---------------------------*/
+
+
+#body3 {
+    background-color: #FC706D;
+    
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+
+}
+.menuFemme{
+    background-color: #FC706D;
+    position: fixed;
+    width: 100%;
+    margin-top: 0;
+    z-index: 10;
+    border: solid black;
+    display: flex;
+    justify-content: space-around;
+}
+#photoFemme{
+    position: relative;
+    top: 0px;
+    z-index: 10;
+    max-width: 100%;
+/*    min-height: 22vh;*/
+}
+#map {
+      width: 100%;
+      height: 100vh;
+    }
+
+#questionMark{
+    position: absolute;
+    z-index: 11;
+    max-width: 20%;
+    left: auto;
+    
+}
+.interoY {
+    display: block !important;
+}
+
+.interoN {
+    position: absolute;
+    background-color: black;
+    border: solid 2px #791C1B;
+    max-width: 400px;
+    color: white;
+    right: 70px;
+    top: 70px;
+    padding: 10px;
+    z-index: 9;
+
+    display: none;
+}
+
+.relative{
+    position: relative;
+}
