@@ -61,7 +61,7 @@
      })
         $(document).click( function(){
                              console.log(("to"));
-            if ($(".interoY").length>=1){
+            if ($(".interoY").length>=2){
                  $(".interoN").removeClass("interoY"); 
                             console.log(("tata"));
 

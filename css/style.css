@@ -110,9 +110,6 @@
     right: 0px;
 }
 
-.interoY {
-    display: block !important;
-}
 
 .interoN {
     position: absolute;
@@ -127,7 +124,20 @@
 
     display: none;
 }
+.interoY {
+    display: block !important;
+}
 
 .relative {
     position: relative;
 }
+/*---------------------------------------------test-------------------------------------*/
+
+
+
+
+
+
+
+
+
