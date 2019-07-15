@@ -125,26 +125,100 @@
     </div>
     
     <div id="map" style="height:100vh;"></div>
-    <script type="text/javascript">
-        var map = new OSMBuildings({
-            container: 'map',
-            position: {
-                latitude: <?php echo $lt; ?>,
-                longitude: <?php echo $lg; ?>
-            },
-            zoom: 16,
-            minZoom: 15,
-            maxZoom: 20,
-            tilt: 40,
-            rotation: 300,
-            effects: ['shadows'],
-            attribution: '© Data <a href="https://openstreetmap.org/copyright/">OpenStreetMap</a> © Map <a href="https://mapbox.com/">Mapbox</a> © 3D <a href="https://osmbuildings.org/copyright/">OSM Buildings</a>'
-        });
+<script>
+mapboxgl.accessToken = '<?php include("keyG.php"); ?>';
+var map = new mapboxgl.Map({
+style: 'https://data.osmbuildings.org/0.2/anonymous/style.json',
+center: [<?php echo $lg; ?>,<?php echo $lt; ?>],
+zoom: 15.5,
+pitch: 45,
+bearing: -17.6,
+container: 'map'
+});
+ 
+// The 'building' layer in the mapbox-streets vector source contains building-height
+// data from OpenStreetMap.
+map.on('load', function() {
+// Insert the layer beneath any symbol layer.
+var layers = map.getStyle().layers;
+ 
+var labelLayerId;
+for (var i = 0; i < layers.length; i++) {
+if (layers[i].type === 'symbol' && layers[i].layout['text-field']) {
+labelLayerId = layers[i].id;
+break;
+}
+}
+ 
+map.addLayer({
+'id': '3d-buildings',
+'source': 'composite',
+'source-layer': 'building',
+'filter': ['==', 'extrude', 'true'],
+'type': 'fill-extrusion',
+'minzoom': 15,
+'paint': {
+'fill-extrusion-color': '#aaa',
+ 
+// use an 'interpolate' expression to add a smooth transition effect to the
+// buildings as the user zooms in
+'fill-extrusion-height': [
+   "interpolate", ["linear"], ["zoom"],
+   15, 0,
+   15.05, ["get", "height"]
+   ],
+   'fill-extrusion-base': [
+   "interpolate", ["linear"], ["zoom"],
+   15, 0,
+   15.05, ["get", "min_height"]
+   ],
+'fill-extrusion-opacity': .6
+}
+}, labelLayerId);
+});
 
-        map.addMapTiles('https://{s}.tiles.mapbox.com/v3/jcdd.pk.eyJ1IjoiYXZnaWxsZXMiLCJhIjoiY2p4eWY1eHhuMDh2dDNjbnl0bmcxNzZibSJ9.ublbEdF_X1WxHOnKG_E0_g/{z}/{x}/{y}.png');
-        map.addGeoJSONTiles('https://{s}.data.osmbuildings.org/0.2/dixw8kmb/tile/{z}/{x}/{y}.json');
 
-    </script>
+var marker = new mapboxgl.Marker({
+   draggable: true
+})
+.setLngLat([2.3344715,48.8408324])
+.addTo(map);
+
+
+map.on('load', function() {
+   map.loadImage('https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Cat_silhouette.svg/400px-Cat_silhouette.svg.png', function(error, image) {
+   if (error) throw error;
+      map.addImage('cat', image);
+      map.addLayer({
+         "id": "points",
+         "type": "symbol",
+         "source": {
+            "type": "geojson",
+            "data": {
+               "type": "FeatureCollection",
+               "features": [{
+                  "type": "Feature",
+                  "geometry": {
+                     "type": "Point",
+                     "coordinates": [2.3344715,48.8408324]
+                  }
+               }]
+            }
+         },
+         "layout": {
+            "icon-image": "cat",
+            "icon-size": 0.25
+         }
+      });
+   });
+});
+
+
+// Add zoom and rotation controls to the map.
+map.addControl(new mapboxgl.NavigationControl());
+</script>
+
+
     <!--
     <script>
         var map = new OSMBuildings({container: 'map',
