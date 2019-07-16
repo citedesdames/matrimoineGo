@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Jeux cité des dames">
+    <title>
+<!--
+        <?php
+    $titreJeu = "Jeu Cité des dames";
+    echo $titreJeu;
+    ?>
+-->
+    </title>
+    <!--    <link rel="shortcut icon" href="">-->
+    <link rel="stylesheet" href="css/style.css">
+<!------------------------- jquery ui ---------------------------->
+<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+<script src="http://code.jquery.com/ui/1.8.21/jquery-ui.min.js"></script>
+<!------------------------CDN jquery punch----------------------->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script> 
+
+
+
+
+
+<!----------------------------partie script---------------------->
+<script type="text/javascript">$(document).ready(function() {
+        
+//        $('#widget').draggable({
+//            scroll: false,
+//          containment: "#container", 
+//            
+//        });
+    $('#widget').draggable({
+            scroll: false,
+            containment: "#containerD",
+            revert: true,
+        cursorAt:{bottom:5},
+        distance:50,
+        snap:true,//valeur default
+        both:true,
+            
+            start: function( event, ui ) {
+                console.log("start top is :" + ui.position.top)
+                console.log("start left is :" + ui.position.left)
+            },
+            drag: function(event, ui) {
+                console.log('draging.....');    
+            },
+            stop: function( event, ui ) {
+                console.log("stop top is :" + ui.position.top)
+                console.log("stop left is :" + ui.position.left)
+
+               
+            }    
+        });
+        
+//        $('#target').droppable({
+//            accept:"#widget"
+//        });
+//        // Getter
+//var accept = $( "#target" ).droppable( "option", "accept" );
+// 
+//// Setter
+//$( "#target" ).droppable( "option", "accept", ".special" );
+
+    })
+    </script>
+
+
+
+</head>   
+
+<body >
+   <div id="containerD">
+    <div id="widget">hello</div>
+    <div id="target"></div>
+    
+    </div>
+</body>
+</html>

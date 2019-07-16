@@ -94,7 +94,7 @@
 
         
 
-        $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice  FROM jcdd_contenu WHERE jeu = 1";
+        $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice  FROM jcdd_contenu WHERE jeu = " .($_GET['id'])." ORDER BY RAND();";
         
         
         $req = $link->prepare($sql);
@@ -102,7 +102,7 @@
         
 
         while($data = $req -> fetch()){
-            echo '<div  id="'.$data['id'].'" class="relative"><img src="'.$data['photo_femme'].'" class="photoFemme" alt="'.$data['femme'].'"><img class="questionMark" src="img/icon/question-mark.png" alt="bouton qui est-ce" title="qui est-ce ?">
+            echo '<div  id="'.$data['id'].'" class="relative"><img src="'.$data['photo_femme'].'" class="photoFemme" alt="'.$data['femme'].'"><img class="questionMark" src="img/icon/question-markB.png" alt="bouton qui est-ce" title="qui est-ce ?">
 
 
             
@@ -116,13 +116,26 @@
                 </div>
 
             </div>';
+           
+            }
+//preparation de la carte-------------
+$sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice FROM jcdd_contenu WHERE jeu = " .($_GET['id'])." ORDER BY RAND()";
+        
+        $req = $link->prepare($sql);
+        $req -> execute();
+        
+        while($data = $req -> fetch()){
+        
             $lg= $data['longitude'];
             $lt= $data['latitude'];
-            }
-        
 
+            }
         ?>
     </div>
+    
+<!----------------------  . map  ------------------------------->
+    
+    
     
     <div id="map" style="height:100vh;"></div>
 <script>
@@ -178,72 +191,88 @@ map.addLayer({
 });
 
 
-var marker = new mapboxgl.Marker({
-   draggable: true
-})
-.setLngLat([2.3344715,48.8408324])
-.addTo(map);
+
 
 
 map.on('load', function() {
-   map.loadImage('https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Cat_silhouette.svg/400px-Cat_silhouette.svg.png', function(error, image) {
-   if (error) throw error;
-      map.addImage('cat', image);
-      map.addLayer({
-         "id": "points",
-         "type": "symbol",
-         "source": {
-            "type": "geojson",
-            "data": {
-               "type": "FeatureCollection",
-               "features": [{
-                  "type": "Feature",
-                  "geometry": {
-                     "type": "Point",
-                     "coordinates": [2.3344715,48.8408324]
-                  }
-               }]
-            }
-         },
-         "layout": {
-            "icon-image": "cat",
-            "icon-size": 0.25
-         }
-      });
-   });
+//   map.loadImage('https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Cat_silhouette.svg/400px-Cat_silhouette.svg.png', function(error, image) {
+//   if (error) throw error;
+//      map.addImage('cat', image);
+//      map.addLayer({
+//         "id": "points",
+//         "type": "symbol",
+//         "source": {
+//            "type": "geojson",
+//            "data": {
+//               "type": "FeatureCollection",
+//               "features": [{
+//                  "type": "Feature",
+//                  "geometry": {
+//                     "type": "Point",
+//                     "coordinates": [2.3344715,48.8408324]
+//                  }
+//               }]
+//            }
+//         },
+//         "layout": {
+//            "icon-image": "cat",
+//            "icon-size": 0.25
+//         }
+//      });
+//   });
+    
+     var geojson = {
+  type: 'FeatureCollection',
+  features: [
+    <?php
+    
+    $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice, adresse FROM jcdd_contenu WHERE jeu = " .($_GET['id'])." ORDER BY RAND()";
+        
+        $req = $link->prepare($sql);
+        $req -> execute();
+    
+   while($data = $req -> fetch()){
+        
+       echo " 
+  {
+    type: 'Feature',
+    geometry: {
+      type: 'Point',
+      coordinates: [".$data['longitude'] .",". $data['latitude'] ."]},
+    properties: {
+      title: 'Mapbox',
+      description: \"".str_replace('"','\"',$data['adresse']) ."\"
+    }
+  },";    
+            }  
+    
+    ?>
+  ]
+};
+    geojson.features.forEach(function(marker) {
+
+  // create a HTML element for each feature
+  var el = document.createElement('div');
+  el.className = 'marker';
+     
+  // make a marker for each feature and add to the map
+  new mapboxgl.Marker(el,{draggable: true})
+    .setLngLat(marker.geometry.coordinates)
+    .addTo(map);
+        
+});
+    
+
 });
 
 
 // Add zoom and rotation controls to the map.
 map.addControl(new mapboxgl.NavigationControl());
+    
 </script>
 
 
-    <!--
-    <script>
-        var map = new OSMBuildings({container: 'map',
-
-            position: {
-                latitude: 52.51836,
-                longitude: 13.40438
-            },
-
-            zoom: 16,
-
-            minZoom: 15,
-
-            maxZoom: 20,
-
-            attribution: '© Data <a href="https://openstreetmap.org/copyright/">OpenStreetMap</a> © Map <a href="https://mapbox.com/">Mapbox</a> © 3D <a href="https://osmbuildings.org/copyright/">OSM Buildings</a>'
-
-        })
-
-        map.addMapTiles('https://{s}.tiles.mapbox.com/v3/pk.eyJ1IjoiYXZnaWxsZXMiLCJhIjoiY2p4eWZjdHo2MDkzMTNjc2J6YjJzeHR6NyJ9.7J6MuPrTuaYf78rPRU0ClA/{z}/{x}/{y}.png');
-
-        map.addGeoJSONTiles('https://{s}.data.osmbuildings.org/0.2/anonymous/tile/{z}/{x}/{y}.json');
-
-    </script>
--->
+ 
 
 </body>
 
