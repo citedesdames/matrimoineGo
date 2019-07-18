@@ -29,15 +29,12 @@
 <!----------------------------partie script---------------------->
 <script type="text/javascript">$(document).ready(function() {
         
-//        $('#widget').draggable({
-//            scroll: false,
-//          containment: "#container", 
-//            
-//        });
-    $('#widget').draggable({
+
+    $('.widget').draggable({
             scroll: false,
             containment: "#containerD",
-            revert: true,
+            revert: false ,
+            
         cursorAt:{bottom:5},
         distance:50,
         snap:true,//valeur default
@@ -53,19 +50,31 @@
             stop: function( event, ui ) {
                 console.log("stop top is :" + ui.position.top)
                 console.log("stop left is :" + ui.position.left)
+                console.log(this.draggable);
+                if(ui.position.left<window.innerWidth/2){
+                    console.log("categorie1");
+                    $(this).attr('class','catX');
 
+                }
+                else{
+                    console.log("categorie2");
+                    $(this).attr('class','cat2');
+                }
+                    
+                $('.widget').draggable({revert:false});
+                
                
             }    
         });
         
-//        $('#target').droppable({
-//            accept:"#widget"
-//        });
-//        // Getter
-//var accept = $( "#target" ).droppable( "option", "accept" );
-// 
-//// Setter
-//$( "#target" ).droppable( "option", "accept", ".special" );
+        $('#target').droppable({
+            accept:".widget"
+        });
+        // Getter
+var accept = $( "#target" ).droppable( "option", "accept" );
+ 
+// Setter
+$( "#target" ).droppable( "option", "accept", ".special" );
 
     })
     </script>
@@ -76,7 +85,9 @@
 
 <body >
    <div id="containerD">
-    <div id="widget">hello</div>
+    <span class="widget">hello1</span>
+    <span class="widget">hello2</span>
+
     <div id="target"></div>
     
     </div>

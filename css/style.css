@@ -20,6 +20,8 @@
 }
 
 .titreBlanc {
+    margin: 0;
+    padding: 0;
     font-family: 'rouge Script';
     color: white;
     font-size: 4rem;
@@ -100,25 +102,28 @@
 
 #map {
     width: 100%;
-    height: 100vh;
+    position: fixed;
 }
 
 .questionMark {
     position: absolute;
     z-index: 11;
-    max-width: 20%;
+    max-width: 30%;
     right: 0px;
 }
 
 
 .interoN {
-    position: absolute;
+    position: fixed;
     background-color: black;
     border: solid 2px #791C1B;
-    max-width: 400px;
+    width: 80%;
+    text-align: center;
+    min-height: 20vh;
     color: white;
-    right: 70px;
-    top: 70px;
+    right: 10%;
+    left: 10%;
+    top: 40vh;
     padding: 10px;
     z-index: 9;
 
@@ -133,21 +138,28 @@
 }
 
 .marker {
-  background-image: url(../img/icon/maps-flags.png);
   background-size: cover;
   width: 50px;
   height: 50px;
   border-radius: 50%;
   cursor: pointer;
 }
+.markerB {
+  background-image: url(../img/icon/maps-and-flags1.png);
+  
+}
+.markerR {
+  background-image: url(../img/icon/maps-flags.png);
+  
+}
 
-.marker1 {
+.marker3 {
   background-image: url(../img/femmes/HeleneBertaux.jpg);
 }
 /*---------------------------------------------drag2-------------------------------------*/
 
 
-#widget{
+.widget{
     border: solid;
     width: 80px;
     
@@ -165,6 +177,72 @@
     
 }
 
+.cat2{
+    background-color: green;
+            color: white;
 
+}
+.catX{
+        background-color: red;
+        color: white;
+}
+/*---------------------------------------drag php---------------------------------------------------*/
+.body4{
+    
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
 
+    
+}
+.photoFemme2 {
+    border: solid #F2D5CE;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    max-width: 100%;
+    /*    min-height: 22vh;*/
+}
+.flexx{
+    background-color:#FC706D ;
+    display: flex;
+}
 
+.left{
+    height: 70vh;
+    width: 50%;
+    border-right: solid;
+}
+.right{
+    height: 70vh;
+    width: 50%;
+    
+}
+.contain{
+    display: flex;
+    background-color:#E4F2F1 ;
+    height: 70vh;
+}
+.cat1{
+    border: solid green;!important
+     margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+
+    z-index: 10;
+    max-width: 100%;
+}
+.cat2{
+    border: solid red;!important
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+
+    z-index: 10;
+    max-width: 100%;
+}
