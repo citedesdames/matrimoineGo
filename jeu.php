@@ -48,11 +48,14 @@
             return Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
             }
         
-        
+            var score=10;
+
         $(document).ready(function() {
             
             
-            
+        // initialisation du score
+        $("#Tscore").html(score);
+  
             
             
             
@@ -70,13 +73,14 @@
                 console.log("click percu");
                 $(this).parent().find(".interoN").addClass("interoY");
             })
-            $(document).click(function() {
+            $(".close").click(function() {
                 console.log(("to"));
-                if ($(".interoY").length >= 2) {
+                if ($(".interoY").length >= 1) {
                     $(".interoN").removeClass("interoY");
                     console.log(("tata"));
 
                 }
+                
 
 
 
@@ -84,14 +88,16 @@
             })
 
 
-
+            map.addControl(new mapboxgl.GeolocateControl({positionOptions: {enableHighAccuracy: true},trackUserLocation: true}));
 
 
 
         });
+        
 
     </script>
     <!------------------------------------------fin zingtouch-------------------------->
+   
 </head>
 
 <body id="body3">
@@ -107,7 +113,7 @@
 
         
 
-        $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice  FROM jcdd_contenu WHERE jeu = ? ORDER BY RAND();";
+        $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice, date_naissance, date_mort   FROM jcdd_contenu WHERE jeu = ? ORDER BY RAND();";
         
         
         $req = $link->prepare($sql);
@@ -115,13 +121,16 @@
         
 
         while($data = $req -> fetch()){
-            echo '<div  id="p'.$data['id'].'" class="relative"><img src="'.$data['photo_femme'].'" class="photoFemme" alt="'.$data['femme'].'"><img class="questionMark" src="img/icon/question-markB.png" alt="bouton qui est-ce" title="qui est-ce ?">
+            echo '<div  id="p'.$data['id'].'" class="relative"><img src="'.$data['photo_femme'].'" class="photoFemme" id="i'.$data['id'].'" alt="'.$data['femme'].'"><img class="questionMark" src="img/icon/question-markB.png" alt="bouton qui est-ce" title="qui est-ce ?">
 
 
             
             <div class="interoN">
-                   
-                    <strong style="color:#D07A25; font-size: 1.5rem"></strong> 
+                   <img class="close" src="img/icon/close.png" alt="fermer la fenêtre" title="fermer">
+                    <strong style="color:#D07A25; font-size: 1.5rem;margin="2px;">
+                    '.$data['femme'].' ('.$data['date_naissance'].'-'.$data['date_mort'].')
+                    </strong> 
+                    
                     <br>
                    '.$data['indice'].'
                     <br>
@@ -207,8 +216,12 @@ $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice ,cat
 
                 console.log('d: '+distanceMini);
                 if(distanceMini <30){
+                    $(".marker").addClass('markerR');
+                    $(".marker").removeClass('markerB');
                     meilleurMarker.addClass('markerB');
                     meilleurMarker.removeClass('markerR');
+                    console.log("markeur");
+                    console.log(ui.helper.context.src);
                     
                     
                 }
@@ -249,14 +262,43 @@ $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice ,cat
                     })
 
                 console.log('d: '+distanceMini);
+                var imgRevient=true;
                 if(distanceMini <30){
-                    ui.helper.context.style.display="none";
+                    console.log($(this).attr("id").replace("i","")+meilleurMarker.attr("id").replace("m","")); 
+                    
+                    
+                     if($(this).attr("id").replace("i","")==meilleurMarker.attr("id").replace("m","")){
+                
+                    //image bonne
+                        imgRevient=false;
+                        
+                    ui.helper.context.style.display="none";                
+                    meilleurMarker.removeClass('markerB');
+                    meilleurMarker.css('background-image',"url("+ui.helper.context.src+")");
+                        
+                    //bonne reponse +2 mais -1     
+                    score = score + 2; 
+                    $("#Tscore").html(score);
+
+                        console.log(score);
+//                        $(this).draggable({revert: false});
+                    }
+                    else{
+                    //si mauvaise reponse -1
+                    score = score - 1; 
+                    $("#Tscore").html(score);
+                    }
                     
                     
                 }
-                else{
+                if(imgRevient==true){
+                    //l'image de l'artiste retourne
                     ui.helper.context.style.display="block";
-
+                    meilleurMarker.removeClass('markerB');
+//                    meilleurMarker.css('background-image',ui.helper.context.src);
+                    meilleurMarker.addClass('markerR');
+                   
+                    
                 }
                 
             }    
@@ -428,7 +470,12 @@ $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice ,cat
 
     </script>
 
-
+<div class="score">
+    <p class="Tscore">Score:</p>
+    <span class="Tscore" id="Tscore"></span>
+ 
+    
+</div>
      <div style="z-index:10000;position:fixed; bottom:0; right:0;"><a href="drag.php?id=1">Etape suivante</a></div>
 
 

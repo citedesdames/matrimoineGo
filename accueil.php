@@ -22,31 +22,27 @@
    <h1 class="titreBlanc"><?php echo $titreJeu; ?> </h1>
    
     <div class="container">
+
         <?php
     
         //----------chargement du site soit local soit université---------------------------
 
             include ('jeuConnexion.php');
         //----------chargement du site soit local soit université---------------------------
-
-    
-   $sql = "SELECT id_jeu,nom_jeu,photo FROM jcdd_jeux ";
-// On prépare la requête avant l'envoi :
-$req = $link->prepare($sql);
-$req -> execute();
-// On crée une liste déroulante avec les résultats
-
-while($data = $req -> fetch()){
-  // On affiche chaque résultat sous forme d'un item de la liste
-  echo '<div class="flexBox" id="'.$data['id_jeu'].'"><a class="centre" href="./jeu.php?id='.$data['id_jeu'].'" > <div class="titreJeu">'.$data['nom_jeu'].',</div><img class="box" src="'.$data['photo'].'" ></a></div>';
-}
-$req = null;
-
-
-    $link = null;
-    ?>
+        ?>
+       <p><strong>Bienvenu sur MatrimoineGo!</strong></p>
+       
+       
+       
     </div>
-    
+    <p>Grâce à MoitrimoineGo tu vas pouvoir connaître les grandes artistes de ta ville.Le but est de retrouver quelle femmes correspond à quelle oeuvres.</p>
+    <p>Tu peux décider de le faire depuis chez toi ou en allant sur place:</p>
+       
+       <a class="but" href="" >Chez moi</a>
+       <a href="index.php" class="but"
+>Sur place</a>
+       
+       
 </body>
 
 </html>
