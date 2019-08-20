@@ -6,7 +6,7 @@
     background-color: #FC706D;
     margin: 0;
     padding: 0;
-
+    
 }
 
 .container {
@@ -14,8 +14,8 @@
     display: flex;
     flex-wrap: nowrap;
     justify-content: center;
-
-    /*    flex-direction: column;*/
+    
+/*        flex-direction: column;*/
 
 }
 
@@ -30,11 +30,33 @@
 
 
 }
+.containerBut {
+    position: relative;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    font-family: 'Paytone One';
+    text-align: center;
+
+}
+/*bouton premiere page*/
 .but {
-    font-size: 4rem;
+    font-size: 2rem;
     text-decoration: none;
     background-color: white;
-    color: blue;
+    color: #593431;
+    border: solid;
+    margin: 20px;
+    padding: 5px;
+    font-family: 'Paytone One';
+    margin-top:15%;
+    
+}
+.bas{
+    margin:
+    text-align: center;
 
 }
 
@@ -96,14 +118,17 @@
     z-index: 10;
     border: solid black;
     display: flex;
-    justify-content: space-around;
+/*    justify-content: space-around;*/
+    justify-content: center;
 }
 
 .photoFemme {
+    margin: auto;
     position: relative;
     top: 0px;
     z-index: 10;
     max-width: 100%;
+    max-height: 20vh;
     /*    min-height: 22vh;*/
 }
 
@@ -133,7 +158,6 @@
     top: 40vh;
     padding: 10px;
     z-index: 9;
-
     display: none;
 }
 .interoY {
@@ -158,6 +182,52 @@
 .markerR {
   background-image: url(../img/icon/maps-flags.png);
   
+}
+
+.negatif{
+    
+    font-size: 1rem;
+    z-index: 15;
+    position: relative;
+/*
+    transform: translateY(-30px);
+    animation-delay: 2000ms;
+*/
+/*    color:red;*/
+
+}
+.modalFin{
+/*
+    vertical-align: middle;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+*/
+    transform:translateX(-50%);
+    font-family: 'Paytone One';
+    left: 50%;
+    top:30%;
+    width: 80%;
+    border: solid;
+    z-index: 20;
+    position: absolute;
+    min-height: 30vh;
+    background-color: white;
+}
+.buto {
+    width: 50%;
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
+    font-size: 1rem;
+    margin-top: 50px;
+    text-decoration: none;
+    background-color: white;
+    color: #593431;
+    border: solid;
+    padding: 5px;
+    font-family: 'Paytone One';
 }
 
 .score{

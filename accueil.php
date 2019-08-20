@@ -21,7 +21,7 @@
 <body class="body2">
    <h1 class="titreBlanc"><?php echo $titreJeu; ?> </h1>
    
-    <div class="container">
+    <div class="containerBut">
 
         <?php
     
@@ -30,18 +30,17 @@
             include ('jeuConnexion.php');
         //----------chargement du site soit local soit université---------------------------
         ?>
-       <p><strong>Bienvenu sur MatrimoineGo!</strong></p>
+       <p><strong>Bienvenu sur <?php echo $titreJeu; ?> !</strong></p>
        
-       
-       
-    </div>
-    <p>Grâce à MoitrimoineGo tu vas pouvoir connaître les grandes artistes de ta ville.Le but est de retrouver quelle femmes correspond à quelle oeuvres.</p>
+       <p>Grâce à MoitrimoineGo tu vas pouvoir connaître les grandes artistes de ta ville.Le but est de retrouver quelle femmes correspond à quelle oeuvres.</p>
     <p>Tu peux décider de le faire depuis chez toi ou en allant sur place:</p>
-       
-       <a class="but" href="" >Chez moi</a>
-       <a href="index.php" class="but"
->Sur place</a>
-       
+           
+
+       <a href="index.php" class="but">Commencer !</a>
+        
+    </div>
+    
+    <div class="bas">Créer par GILLES AVRAAM</div>   
        
 </body>
 

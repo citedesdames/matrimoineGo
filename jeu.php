@@ -36,11 +36,6 @@
 
     <!----------------------------------------zingtouch-------------------------------->
 
-    <script>
-
-
-    </script>
-
     <script type="text/javascript">
     
         function distance(x1,y1,x2,y2){
@@ -49,6 +44,38 @@
             }
         
             var score=10;
+        var nbrElementPoint=0;
+
+        
+        function changeScore(point){
+        $(".Tscore").append("<div class='negatif'>"+point+"</div>");
+        $(".negatif").css({"left": $(".Tscore")[1].offsetLeft+ "px", "top":"-10px"}); 
+                    if(point=="+1"){
+                        $(".negatif").css({"color":"green"}); 
+                     $(".negatif").animate({"top":"-200px","opacity":"0.2"},2000,function(){$(".negatif").remove();});
+                        nbrElementPoint=nbrElementPoint+1;
+                            console.log(nbrElementPoint);  
+                         if(nbrElementPoint==5){
+                //niveau terminé
+                
+            niveauTerminer();
+
+            }
+                    }
+                    if(point=="-1"){
+                        $(".negatif").css({"color":"red"}); 
+                    $(".negatif").animate({"top":"5px","opacity":"0.2"},2000,function(){$(".negatif").remove();});
+                        
+                    }
+        }
+        
+        function niveauTerminer(){
+            
+            //création d'une modale
+           console.log( score);
+            $(".menuFemme").after('<div class="modalFin">Bravo tu a reussi à trouvé toutes les artistes !<div>Ton score est de '+score+'<a class="buto" href="drag.php?id=1">Etape suivante</a></div></div>')
+        
+        }
 
         $(document).ready(function() {
             
@@ -70,14 +97,11 @@
             
     
             $(".questionMark").click(function() {
-                console.log("click percu");
                 $(this).parent().find(".interoN").addClass("interoY");
             })
             $(".close").click(function() {
-                console.log(("to"));
                 if ($(".interoY").length >= 1) {
                     $(".interoN").removeClass("interoY");
-                    console.log(("tata"));
 
                 }
                 
@@ -173,7 +197,7 @@ $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice ,cat
 
 
 
-    <div id="map" style="height:100vh;"></div>
+    <div id="map" style="align-content: center;justify-content:center;height:100vh; margin-top:auto; margin-bottom:auto"></div>
     <script type="text/javascript">$(document).ready(function() {
 
     $('.photoFemme').draggable({
@@ -186,8 +210,8 @@ $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice ,cat
         both:true,
             
             start: function( event, ui ) {
-                console.log("start top is :" + ui.position.top)
-                console.log("start left is :" + ui.position.left)
+//                console.log("start top is :" + ui.position.top)
+//                console.log("start left is :" + ui.position.left)
                 ui.helper.context.style.opacity="0.7";
                 
             },
@@ -214,29 +238,29 @@ $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice ,cat
                      compteurDrag++;
                     })
 
-                console.log('d: '+distanceMini);
+//                console.log('d: '+distanceMini);
                 if(distanceMini <30){
                     $(".marker").addClass('markerR');
                     $(".marker").removeClass('markerB');
                     meilleurMarker.addClass('markerB');
                     meilleurMarker.removeClass('markerR');
-                    console.log("markeur");
-                    console.log(ui.helper.context.src);
+//                    console.log("markeur");
+//                    console.log(ui.helper.context.src);
                     
                     
                 }
                 else{
                     meilleurMarker.addClass('markerR');
                     meilleurMarker.removeClass('markerB');
-                    console.log('rouge');
+//                    console.log('rouge');
 
                 }
                 
             },
             stop: function( event, ui ) {
-                console.log("stop top is :" + ui.position.top)
-                console.log("stop left is :" + ui.position.left)
-                
+//                console.log("stop top is :" + ui.position.top)
+//                console.log("stop left is :" + ui.position.left)
+//                
                 ui.helper.context.style.opacity="1";
 
                
@@ -261,14 +285,16 @@ $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice ,cat
                      compteurDrag++;
                     })
 
-                console.log('d: '+distanceMini);
+//                console.log('d: '+distanceMini);
                 var imgRevient=true;
                 if(distanceMini <30){
-                    console.log($(this).attr("id").replace("i","")+meilleurMarker.attr("id").replace("m","")); 
+//                    console.log($(this).attr("id").replace("i","")+meilleurMarker.attr("id").replace("m","")); 
                     
-                    
+
                      if($(this).attr("id").replace("i","")==meilleurMarker.attr("id").replace("m","")){
-                
+                    
+                    changeScore("+1");
+                    
                     //image bonne
                         imgRevient=false;
                         
@@ -277,17 +303,21 @@ $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice ,cat
                     meilleurMarker.css('background-image',"url("+ui.helper.context.src+")");
                         
                     //bonne reponse +2 mais -1     
-                    score = score + 2; 
+                    score = score + 1; 
                     $("#Tscore").html(score);
+                        
+                    
 
-                        console.log(score);
 //                        $(this).draggable({revert: false});
                     }
                     else{
                     //si mauvaise reponse -1
                     score = score - 1; 
-                    $("#Tscore").html(score);
+
+                    changeScore("-1");
                     }
+                   
+                    
                     
                     
                 }
@@ -297,8 +327,7 @@ $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice ,cat
                     meilleurMarker.removeClass('markerB');
 //                    meilleurMarker.css('background-image',ui.helper.context.src);
                     meilleurMarker.addClass('markerR');
-                   
-                    
+                    $("#Tscore").html(score);
                 }
                 
             }    
@@ -476,7 +505,7 @@ $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice ,cat
  
     
 </div>
-     <div style="z-index:10000;position:fixed; bottom:0; right:0;"><a href="drag.php?id=1">Etape suivante</a></div>
+    
 
 
 </body>
