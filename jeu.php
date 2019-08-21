@@ -137,7 +137,7 @@
 
         
 
-        $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice, date_naissance, date_mort   FROM jcdd_contenu WHERE jeu = ? ORDER BY RAND();";
+        $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice, date_naissance, date_mort, bonne_reponse, mauvaise_reponse1, mauvaise_reponse2, descriptif_etape, biographie, score_felicitation  FROM jcdd_contenu WHERE jeu = ? ORDER BY RAND();";
         
         
         $req = $link->prepare($sql);
