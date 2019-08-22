@@ -42,11 +42,14 @@
                 
             return Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
             }
-        
+        var xCreatrice=0;
+        var yCreatrice=0;
+
             var score=10;
         var nbrElementPoint=0;
+//bonne réponse ou mauvaise
+        var imgRevient=true;
 
-        
         function changeScore(point){
         $(".Tscore").append("<div class='negatif'>"+point+"</div>");
         $(".negatif").css({"left": $(".Tscore")[1].offsetLeft+ "px", "top":"-10px"}); 
@@ -54,7 +57,10 @@
                         $(".negatif").css({"color":"green"}); 
                      $(".negatif").animate({"top":"-200px","opacity":"0.2"},2000,function(){$(".negatif").remove();});
                         nbrElementPoint=nbrElementPoint+1;
-                            console.log(nbrElementPoint);  
+                            console.log(nbrElementPoint); 
+                        
+                        score = score + 1; 
+                        
                          if(nbrElementPoint==5){
                 //niveau terminé
                 
@@ -65,19 +71,60 @@
                     if(point=="-1"){
                         $(".negatif").css({"color":"red"}); 
                     $(".negatif").animate({"top":"5px","opacity":"0.2"},2000,function(){$(".negatif").remove();});
-                        
+                        score = score - 1; 
+
                     }
-        }
+                    $("#Tscore").html(score);
+
+        } 
         
+        var message_felicitation="";
         function niveauTerminer(){
+            
+            message_felicitation= assez_bien;
+            
+            if (score>=7){
+                message_felicitation= bien;
+                
+            }
+            if (score>=13){
+                message_felicitation= tres_bien;
+                
+            }
+         
+            
             
             //création d'une modale
            console.log( score);
-            $(".menuFemme").after('<div class="modalFin">Bravo tu a reussi à trouvé toutes les artistes !<div>Ton score est de '+score+'<a class="buto" href="drag.php?id=1">Etape suivante</a></div></div>')
+            $(".menuFemme").after('<div class="modalFin"><p>  '+message_felicitation+'</p><div>Ton score est de '+score+'<a class="buto" href="drag.php?id='+$_GET['id']+'&amp;score='+score+'">Etape suivante</a></div></div>')
         
-        }
+        }    
+        
+       <?php
+        
+        //----------chargement du site soit local soit université---------------------------
+        include ('jeuConnexion.php');
+        
+        //----------chargement du site soit local soit université---------------------------
+
+        
+
+        $sql1 = "SELECT text_cat1, text_cat2, score_tb, score_b, score_ab FROM jcdd_jeux  ORDER BY RAND();";
+        
+        
+        $req1 = $link->prepare($sql1);
+        $req1 -> execute([($_GET['id'])]);
+        
+        while($donne = $req1 -> fetch()){
+            echo 'var tres_bien="'.$donne['score_tb'].'";var bien="'.$donne['score_b'].'";var assez_bien="'.$donne['score_ab'].'";';}
+        
+        ?>
+        
+        
 
         $(document).ready(function() {
+            
+        
             
             
         // initialisation du score
@@ -86,7 +133,7 @@
             
             
             
-            
+        
             
             
             
@@ -129,15 +176,8 @@
     <div class="menuFemme">
 
         <?php
-        
-        //----------chargement du site soit local soit université---------------------------
-        include ('jeuConnexion.php');
-        
-        //----------chargement du site soit local soit université---------------------------
 
-        
-
-        $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice, date_naissance, date_mort, bonne_reponse, mauvaise_reponse1, mauvaise_reponse2, descriptif_etape, biographie, score_felicitation  FROM jcdd_contenu WHERE jeu = ? ORDER BY RAND();";
+        $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice, date_naissance, date_mort, bonne_reponse, mauvaise_reponse1, mauvaise_reponse2, descriptif_etape, biographie FROM jcdd_contenu WHERE jeu = ? ORDER BY RAND();";
         
         
         $req = $link->prepare($sql);
@@ -197,19 +237,22 @@ $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice ,cat
 
 
 
-    <div id="map" style="align-content: center;justify-content:center;height:100vh; margin-top:auto; margin-bottom:auto"></div>
+    <div id="map" style="align-content: center;justify-content:center;height:90vh; margin-top:10vh; margin-bottom:auto"></div>
     <script type="text/javascript">$(document).ready(function() {
 
-    $('.photoFemme').draggable({
+    $('.relative').draggable({
             scroll: false,
             containment: ".body3",
-            revert: true,
+            revert: false
+        ,
         cursorAt:{bottom:5},
         distance:50,
         snap:true,//valeur default
         both:true,
             
             start: function( event, ui ) {
+             xCreatrice=$(this).css("left");
+             yCreatrice=$(this).css("top");
 //                console.log("start top is :" + ui.position.top)
 //                console.log("start left is :" + ui.position.left)
                 ui.helper.context.style.opacity="0.7";
@@ -227,7 +270,7 @@ $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice ,cat
        
         
             var xp=ui.offset.left;
-            var yp=ui.offset.top;
+            var yp=ui.offset.top-parseInt($(this).css("height"));
             var xm=t[t.length-2];
             var ym=t[t.length-1];
                 
@@ -239,14 +282,15 @@ $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice ,cat
                     })
 
 //                console.log('d: '+distanceMini);
-                if(distanceMini <30){
+                if(distanceMini <50){
                     $(".marker").addClass('markerR');
                     $(".marker").removeClass('markerB');
                     meilleurMarker.addClass('markerB');
                     meilleurMarker.removeClass('markerR');
-//                    console.log("markeur");
+                    console.log("markeur");
 //                    console.log(ui.helper.context.src);
-                    
+                    console.log(ui.helper.context.firstElementChild.currentSrc);
+                    console.log(ui);
                     
                 }
                 else{
@@ -258,6 +302,8 @@ $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice ,cat
                 
             },
             stop: function( event, ui ) {
+                imgRevient=true;
+
 //                console.log("stop top is :" + ui.position.top)
 //                console.log("stop left is :" + ui.position.left)
 //                
@@ -274,7 +320,7 @@ $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice ,cat
        
         
             var xp=ui.offset.left;
-            var yp=ui.offset.top;
+            var yp=ui.offset.top-parseInt($(this).css("height"));
             var xm=t[t.length-2];
             var ym=t[t.length-1];
                 
@@ -283,16 +329,17 @@ $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice ,cat
                     meilleurMarker=$(this);
                 }
                      compteurDrag++;
+                     $(this).children().hide();
+                     console.log('cache');
                     })
-
 //                console.log('d: '+distanceMini);
-                var imgRevient=true;
-                if(distanceMini <30){
+                if(distanceMini <50){
 //                    console.log($(this).attr("id").replace("i","")+meilleurMarker.attr("id").replace("m","")); 
                     
-
-                     if($(this).attr("id").replace("i","")==meilleurMarker.attr("id").replace("m","")){
                     
+                     if($(this).attr("id").replace("p","")==meilleurMarker.attr("id").replace("m","")){
+                    //bonne reponse      
+
                     changeScore("+1");
                     
                     //image bonne
@@ -300,19 +347,13 @@ $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice ,cat
                         
                     ui.helper.context.style.display="none";                
                     meilleurMarker.removeClass('markerB');
-                    meilleurMarker.css('background-image',"url("+ui.helper.context.src+")");
-                        
-                    //bonne reponse +2 mais -1     
-                    score = score + 1; 
-                    $("#Tscore").html(score);
+                    meilleurMarker.css('background-image',"url("+ui.helper.context.firstElementChild.currentSrc+")");
                         
                     
 
-//                        $(this).draggable({revert: false});
                     }
                     else{
                     //si mauvaise reponse -1
-                    score = score - 1; 
 
                     changeScore("-1");
                     }
@@ -330,6 +371,12 @@ $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice ,cat
                     $("#Tscore").html(score);
                 }
                 
+                if(imgRevient){
+                    $(this).animate({left:xCreatrice,top:yCreatrice},600,"easeOutCirc");
+
+                    
+                }
+                
             }    
         });
         
@@ -343,6 +390,8 @@ $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice ,cat
 //$( "#target" ).droppable( "option", "accept", ".special" );
 
     })
+        
+        
         mapboxgl.accessToken = '<?php include("keyG.php"); ?>';
         var map = new mapboxgl.Map({
             style: 'https://data.osmbuildings.org/0.2/anonymous/style.json',

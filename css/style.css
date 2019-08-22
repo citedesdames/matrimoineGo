@@ -111,15 +111,17 @@
 }
 
 .menuFemme {
-    background-color: #FC706D;
+    background-color:rgba (252,112,109,0.5);
     position: fixed;
     width: 100%;
     margin-top: 0;
     z-index: 10;
-    border: solid black;
     display: flex;
 /*    justify-content: space-around;*/
     justify-content: center;
+    height: 10vh;
+
+    
 }
 
 .photoFemme {
@@ -128,7 +130,8 @@
     top: 0px;
     z-index: 10;
     max-width: 100%;
-    max-height: 20vh;
+    height: 10vh;
+
     /*    min-height: 22vh;*/
 }
 
