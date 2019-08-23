@@ -96,7 +96,7 @@
             
             //création d'une modale
            console.log( score);
-            $(".menuFemme").after('<div class="modalFin"><p>  '+message_felicitation+'</p><div>Ton score est de '+score+'<a class="buto" href="drag.php?id='+$_GET['id']+'&amp;score='+score+'">Etape suivante</a></div></div>')
+            $(".menuFemme").after('<div class="modalFin"><p>'+message_felicitation+'</p><div>Ton score est de '+score+'<a class="buto" href="drag.php?id=<?php echo $_GET['id']; ?>&amp;score='+score+'">Etape suivante</a></div></div>')
         
         }    
         
@@ -379,6 +379,12 @@ $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice ,cat
                 
             }    
         });
+            
+//            if($(this).attr("id").replace("p","")==meilleurMarker.attr("id").replace("m",""))
+            $(document).on("click",'.marker',function(){
+                
+                console.log ('ca marche XX');
+            })
         
 //        $('#target').droppable({
 //            accept:"#widget"

@@ -21,32 +21,27 @@
 <body class="body2">
    <h1 class="titreBlanc"><?php echo $titreJeu; ?> </h1>
    
-    <div class="container">
+    <div class="containerBut">
+
         <?php
     
         //----------chargement du site soit local soit université---------------------------
 
             include ('jeuConnexion.php');
         //----------chargement du site soit local soit université---------------------------
+        ?>
+       <p><strong>Bienvenu sur <?php echo $titreJeu; ?> !</strong></p>
+       
+       <p>Grâce à MoitrimoineGo tu vas pouvoir connaître les grandes artistes de ta ville.Le but est de retrouver quelle femmes correspond à quelle oeuvres.</p>
+    <p>Tu peux décider de le faire depuis chez toi ou en allant sur place:</p>
+           
 
-    
-   $sql = "SELECT id_jeu,nom_jeu,photo FROM jcdd_jeux ";
-// On prépare la requête avant l'envoi :
-$req = $link->prepare($sql);
-$req -> execute();
-// On crée une liste déroulante avec les résultats
-
-while($data = $req -> fetch()){
-  // On affiche chaque résultat sous forme d'un item de la liste
-  echo '<div class="flexBox" id="'.$data['id_jeu'].'"><a class="centre" href="./jeu.php?id='.$data['id_jeu'].'" > <div class="titreJeu">'.$data['nom_jeu'].',</div><img class="box" src="'.$data['photo'].'" ></a></div>';
-}
-$req = null;
-
-
-    $link = null;
-    ?>
+       <a href="choix_jeux.php" class="but">Commencer !</a>
+        
     </div>
     
+    <div class="bas">Créer par GILLES AVRAAM</div>   
+       
 </body>
 
 </html>

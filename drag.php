@@ -13,6 +13,7 @@
     echo $titreJeu;
     ?>
 -->
+   
     </title>
     <!--    <link rel="shortcut icon" href="">-->
     <link rel="stylesheet" href="css/style.css">
@@ -24,10 +25,74 @@
 
 
 
+<script>
+    
+    <?php
+        
+        //----------chargement du site soit local soit université---------------------------
+        include ('jeuConnexion.php');
+        
+        //----------chargement du site soit local soit université---------------------------
 
+        
 
+        $sql1 = "SELECT categorie_1, categorie_2, photo, photo_source, photo_licence, text_cat1, text_cat2, score_tb, score_b, score_ab FROM jcdd_jeux  WHERE id_jeu;";
+        
+        
+        $req1 = $link->prepare($sql1);
+        $req1 -> execute([($_GET['id'])]);
+        
+        while($donne = $req1 -> fetch()){
+            echo 'var tres_bien="'.$donne['score_tb'].'";var bien="'.$donne['score_b'].'";var assez_bien="'.$donne['score_ab'].'";';
+            $categorieA=$donne['categorie_1'];
+            $categorieB=$donne['categorie_2'];
+        }
+        
+        ?>
+    
+    
+    
 
+var scoreMj=<?php echo $_GET['score']; ?>;
+var erreur=0;
+    
+$(document).on("click",".nbrErreur",function() {
+ 
+    
+    if ($('.cat1,.cat2').length >=erreur){
+     var message_felicitation="";
+        function niveauTerminer(){
+            
+            if(erreur==0){
+                scoreMj=scoreMj+3;
+            }
+            scoreMj=scoreMj-erreur;
+            message_felicitation= assez_bien;
+            
+            if (scoreMj>=7){
+                message_felicitation= bien;
+                
+            }
+            if (scoreMj>=13){
+                message_felicitation= tres_bien;
+                
+            }
+         
+            
+            
+            //création d'une modale
 
+             console.log(scoreMj);
+                 $(".flexx").after('<div class="modalFin"><p>'+message_felicitation+'</p><div>Ton score est de '+scoreMj+'</div><div>Les 2 catégories étaient : <?php echo $categorieA; ?> et <?php echo $categorieB; ?></div><a class="buto" href="choix_jeux.php">RETOUR MENU</a></div>')
+        
+        }    
+            niveauTerminer()
+        
+    }
+            })
+        
+ 
+</script>
     
     </head>   
 
@@ -68,6 +133,7 @@
         both:true,
             
             start: function( event, ui ) {
+               
 //                console.log("start top is :" + ui.position.top)
 //                console.log("start left is :" + ui.position.left)
             },
@@ -75,6 +141,8 @@
 //                console.log('draging.....');    
             },
             stop: function( event, ui ) {
+                
+                
                 console.log("stop top is :" + ui.position.top)
 //                console.log("stop left is :" + ui.position.left);
                 console.log("addition :" + (parseInt(ui.position.left)+ (parseInt(ui.helper.context.clientWidth)/2)));
@@ -82,35 +150,66 @@
 
                if(ui.offset.left+(ui.helper.context.clientWidth)/2<window.innerWidth/2 && document.getElementsByClassName('categorie1')  ){
                    
-                   
-                    console.log("categorie1");
+//                    console.log("categorie1");
                     $(this).addClass('cat1');
                     $(this).removeClass('cat2');
                     
 
                 }
                 else{
-                    console.log("categorie2");
+//                    console.log("categorie2");
                     $(this).addClass('cat2');
                     $(this).removeClass('cat1');
                 }
-                var erreur=0;
-                console.log('intitialisation = '+ erreur);
-
+//                console.log('intitialisation = '+ erreur);
+                var erreur1=0;
                 $('.photoFemme2').each(function(){
                                          
                      if(($(this).hasClass('cat1') && $(this).hasClass('categorie2')) ||($(this).hasClass('cat2') && $(this).hasClass('categorie1'))){
                             
-                            erreur=erreur+1;
-
+                            erreur1=erreur1+1;
+                            
                             }               
-                            console.log(erreur);
             
                                          
                                          })
+                
+                
+//                console.log('intitialisation = '+ erreur);
+                var erreur2=0;
+
+                $('.photoFemme2').each(function(){
+                                         
+                     if(($(this).hasClass('cat1') && $(this).hasClass('categorie1')) ||($(this).hasClass('cat2') && $(this).hasClass('categorie2'))){
+                            
+                            erreur2=erreur2+1;
+                            
+                            }               
+            
+                                         
+                                         })
+                
+                 erreur=erreur2;
+                    if(erreur1<erreur2){
+                        erreur=erreur1;
+                    }
+                
+//                     console.log("erreur");
+//                     console.log(erreur);
+//                     console.log("erreur1");
+//                     console.log(erreur1);
+//                     console.log("erreur2");
+//                     console.log(erreur2);
+//                     console.log($(".cat1").length);
+//                     console.log($(".cat2").length);
+
 //            document.write('<div>Print('+erreur+')</div>');
 //            $('.nbrErreur').remove(erreur);
-             $('.nbrErreur').html('Nombre d\'érreur: '+erreur);
+                
+                
+//             $('.nbrErreur').html('Nombre d\'érreur: '+erreur);
+                
+                
 //            $('.nbrErreur').replaceWith(erreur);
 //             $('.nbrErreur').append(erreur);
 
@@ -125,8 +224,7 @@
      <div class="contain">
          <div class="left"></div>
          <div class="right"></div>
-
      </div>
-     <div class="nbrErreur"></div>
+     <button class="nbrErreur">verifié</button>
 </body>
 </html>
