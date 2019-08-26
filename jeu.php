@@ -134,7 +134,7 @@
 
         <?php
 //creation du menu femme (jcdd_contenu)
-        $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice_femme,indice_lieu, date_naissance, date_mort, reponse1, reponse2, reponse3, ok_reponse1, ok_reponse2, ok_reponse3 FROM jcdd_contenu WHERE jeu = ? ORDER BY RAND();";
+        $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice_femme,indice_lieu, photo_lieu, photo_lieu_source, photo_lieu_licence, date_naissance, date_mort, question_quizz, reponse1, reponse2, reponse3, ok_reponse1, ok_reponse2, ok_reponse3 FROM jcdd_contenu WHERE jeu = ? ORDER BY RAND();";
         
         
         $req = $link->prepare($sql);
@@ -142,12 +142,25 @@
         
 
         while($data = $req -> fetch()){
+            
+            $balise_A_ouvrante="";
+            $balise_A_fermante="";
+            if ($data['photo_lieu_source']!="") {
+                $balise_A_fermante="</a>";
+                $balise_A_ouvrante='<a href=\\"'.$data['photo_lieu_source'].'\\">';
+
+            }
             echo '<div  id="p'.$data['id'].'" class="relative"><img src="'.$data['photo_femme'].'" class="photoFemme" id="i'.$data['id'].'" alt="'.$data['femme'].'"><img class="questionMark" id="f'.$data['id'].'" src="img/icon/question-markB.png" alt="bouton qui est-ce" title="qui est-ce ?">
 
 <script>
 $("#f'.$data['id'].'").click(function() {
             pop_up( "<strong style=\"color:#D07A25; font-size:1.5rem;margin:2px;\">'.$data['femme'].' ('.$data['date_naissance'].'-'.$data['date_mort'].')</strong><br>'.str_replace('"','\\"',$data['indice_femme']).' <br>","","",true);    
-            })
+            });
+            
+             $(document).on("click","#m'.$data['id'].'",function(){
+                pop_up("'.$data['indice_lieu'].'<br><img style=\"position:relative; max-height: 20vh;max-width: 40%;\" src=\"'.$data['photo_lieu'].'\" alt=\"\"><br><small><small>'.$balise_A_ouvrante.$data['photo_lieu_licence'].$balise_A_fermante.'</small></small>","","",true);
+
+            });
 </script>
             
             
@@ -332,19 +345,7 @@ $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice_femm
             }    
         });
             
-//            if($(this).attr("id").replace("p","")==meilleurMarker.attr("id").replace("m",""))
-            $(document).on("click",'.marker',function(){
-//                pop_up();
-            })
-        
-//        $('#target').droppable({
-//            accept:"#widget"
-//        });
-//        // Getter
-//var accept = $( "#target" ).droppable( "option", "accept" );
-// 
-//// Setter
-//$( "#target" ).droppable( "option", "accept", ".special" );
+            
 
     })
         
