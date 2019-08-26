@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="description" content="Jeux cité des dames">
+    <meta name="description" content="MatrimoineGo">
     <title>
 <!--
         <?php
@@ -17,6 +17,7 @@
     </title>
     <!--    <link rel="shortcut icon" href="">-->
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/matrimoineGo.js"></script>
 <!------------------------- jquery ui ---------------------------->
 <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
 <script src="http://code.jquery.com/ui/1.8.21/jquery-ui.min.js"></script>
@@ -25,7 +26,7 @@
 
 
 
-<script>
+
     
     <?php
         
@@ -33,14 +34,16 @@
         include ('jeuConnexion.php');
         
         //----------chargement du site soit local soit université---------------------------
-
+    ?>
+ <script>   
         
+    <?php
 
-        $sql1 = "SELECT categorie_1, categorie_2, photo, photo_source, photo_licence, text_cat1, text_cat2, score_tb, score_b, score_ab FROM jcdd_jeux  WHERE id_jeu;";
+        $sql1 = "SELECT categorie_1, categorie_2, photo, photo_source, photo_licence, texte_fin, score_tb, score_b, score_ab FROM jcdd_jeu  WHERE id_jeu= ?;";
         
         
         $req1 = $link->prepare($sql1);
-        $req1 -> execute([($_GET['id'])]);
+        $req1 -> execute([$_GET['id']]);
         
         while($donne = $req1 -> fetch()){
             echo 'var tres_bien="'.$donne['score_tb'].'";var bien="'.$donne['score_b'].'";var assez_bien="'.$donne['score_ab'].'";';
@@ -51,7 +54,6 @@
         ?>
     
     
-    
 
 var scoreMj=<?php echo $_GET['score']; ?>;
 var erreur=0;
@@ -59,7 +61,8 @@ var erreur=0;
 $(document).on("click",".nbrErreur",function() {
  
     
-    if ($('.cat1,.cat2').length >=erreur){
+    if ($('.cat1,.cat2').length >=5){
+        $('.nbrErreur').hide();
      var message_felicitation="";
         function niveauTerminer(){
             
@@ -82,8 +85,9 @@ $(document).on("click",".nbrErreur",function() {
             
             //création d'une modale
 
-             console.log(scoreMj);
-                 $(".flexx").after('<div class="modalFin"><p>'+message_felicitation+'</p><div>Ton score est de '+scoreMj+'</div><div>Les 2 catégories étaient : <?php echo $categorieA; ?> et <?php echo $categorieB; ?></div><a class="buto" href="choix_jeux.php">RETOUR MENU</a></div>')
+            pop_up("<div class=\"modalFin\"><p>"+message_felicitation+"</p><div>Ton score est de "+scoreMj+"</div><div>Les 2 catégories étaient : <?php echo $categorieA; ?> et <?php echo $categorieB; ?></div>)","RETOUR MENU","choix_jeux.php",false);
+            
+            
         
         }    
             niveauTerminer()
@@ -122,6 +126,10 @@ $(document).on("click",".nbrErreur",function() {
         
         
       <script type="text/javascript">$(document).ready(function() {
+              
+              pop_up("<?php echo $accueil_drag ?>","","",true);
+              
+              close();
         
 
     $('.photoFemme2').draggable({

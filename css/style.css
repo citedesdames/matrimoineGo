@@ -151,6 +151,7 @@
 }
 
 
+/*
 .interoN {
     position: fixed;
     background-color: black;
@@ -170,6 +171,7 @@
 .interoY {
     display: block !important;
 }
+*/
 
 .relative {
     position: relative;
@@ -206,13 +208,8 @@
 
 }
 
-.modalFin {
-    /*
-    vertical-align: middle;
-    align-items: center;
-    justify-content: center;
-    align-content: center;
-*/
+.modal {
+  
     transform: translateX(-50%);
     font-family: 'Paytone One';
     left: 50%;
@@ -223,6 +220,7 @@
     position: absolute;
     min-height: 30vh;
     background-color: white;
+    z-index: 1000;
 }
 
 .buto {

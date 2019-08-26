@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="description" content="Jeux cité des dames">
+    <meta name="description" content="MatrimoineGo">
     <title>
         <?php
     $titreJeu = "Jeu Cité des dames";
@@ -15,7 +15,7 @@
     <!--    <link rel="shortcut icon" href="">-->
     <link rel="stylesheet" href="css/style.css">
 
-
+<script src="js/matrimoineGo.js"></script>
 <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>-->
 <!------------------------------jquery-------------------------->
 <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
@@ -36,6 +36,18 @@
 
     <!----------------------------------------zingtouch-------------------------------->
 
+   
+        <?php
+        
+        //----------chargement du site soit local soit université---------------------------
+        include ('jeuConnexion.php');
+        
+        //----------chargement du site soit local soit université--------------------------
+    
+        ?>
+        
+   
+   
     <script type="text/javascript">
     
         function distance(x1,y1,x2,y2){
@@ -78,85 +90,29 @@
 
         } 
         
-        var message_felicitation="";
         function niveauTerminer(){
-            
-            message_felicitation= assez_bien;
-            
-            if (score>=7){
-                message_felicitation= bien;
-                
-            }
-            if (score>=13){
-                message_felicitation= tres_bien;
-                
-            }
          
             
             
             //création d'une modale
            console.log( score);
-            $(".menuFemme").after('<div class="modalFin"><p>'+message_felicitation+'</p><div>Ton score est de '+score+'<a class="buto" href="drag.php?id=<?php echo $_GET['id']; ?>&amp;score='+score+'">Etape suivante</a></div></div>')
+            pop_up('Ton score est de '+score+'.','Etape suivante','drag.php?id=<?php echo $_GET['id']; ?>&amp;score='+score,false);
         
         }    
         
-       <?php
-        
-        //----------chargement du site soit local soit université---------------------------
-        include ('jeuConnexion.php');
-        
-        //----------chargement du site soit local soit université---------------------------
 
-        
-
-        $sql1 = "SELECT text_cat1, text_cat2, score_tb, score_b, score_ab FROM jcdd_jeux  ORDER BY RAND();";
-        
-        
-        $req1 = $link->prepare($sql1);
-        $req1 -> execute([($_GET['id'])]);
-        
-        while($donne = $req1 -> fetch()){
-            echo 'var tres_bien="'.$donne['score_tb'].'";var bien="'.$donne['score_b'].'";var assez_bien="'.$donne['score_ab'].'";';}
-        
-        ?>
-        
         
 
         $(document).ready(function() {
             
-        
-            
+            pop_up("<?php echo $accueil_jeu; ?>","","",true);
             
         // initialisation du score
         $("#Tscore").html(score);
   
-            
-            
-            
-        
-            
-            
-            
-            
-            
-            
-            
-            
     
-            $(".questionMark").click(function() {
-                $(this).parent().find(".interoN").addClass("interoY");
-            })
-            $(".close").click(function() {
-                if ($(".interoY").length >= 1) {
-                    $(".interoN").removeClass("interoY");
-
-                }
-                
-
-
-
-
-            })
+            
+            close();
 
 
             map.addControl(new mapboxgl.GeolocateControl({positionOptions: {enableHighAccuracy: true},trackUserLocation: true}));
@@ -176,8 +132,8 @@
     <div class="menuFemme">
 
         <?php
-
-        $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice, date_naissance, date_mort, bonne_reponse, mauvaise_reponse1, mauvaise_reponse2, descriptif_etape, biographie FROM jcdd_contenu WHERE jeu = ? ORDER BY RAND();";
+//creation du menu femme (jcdd_contenu)
+        $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice_femme,indice_lieu, date_naissance, date_mort, reponse1, reponse2, reponse3, ok_reponse1, ok_reponse2, ok_reponse3 FROM jcdd_contenu WHERE jeu = ? ORDER BY RAND();";
         
         
         $req = $link->prepare($sql);
@@ -185,30 +141,25 @@
         
 
         while($data = $req -> fetch()){
-            echo '<div  id="p'.$data['id'].'" class="relative"><img src="'.$data['photo_femme'].'" class="photoFemme" id="i'.$data['id'].'" alt="'.$data['femme'].'"><img class="questionMark" src="img/icon/question-markB.png" alt="bouton qui est-ce" title="qui est-ce ?">
+            echo '<div  id="p'.$data['id'].'" class="relative"><img src="'.$data['photo_femme'].'" class="photoFemme" id="i'.$data['id'].'" alt="'.$data['femme'].'"><img class="questionMark" id="f'.$data['id'].'" src="img/icon/question-markB.png" alt="bouton qui est-ce" title="qui est-ce ?">
 
-
+<script>
+$("#f'.$data['id'].'").click(function() {
+            pop_up( "<strong style=\"color:#D07A25; font-size:1.5rem;margin:2px;\">'.$data['femme'].' ('.$data['date_naissance'].'-'.$data['date_mort'].')</strong><br>'.$data['indice_femme'].' <br>","","",true);    
+            })
+</script>
             
-            <div class="interoN">
-                   <img class="close" src="img/icon/close.png" alt="fermer la fenêtre" title="fermer">
-                    <strong style="color:#D07A25; font-size: 1.5rem;margin="2px;">
-                    '.$data['femme'].' ('.$data['date_naissance'].'-'.$data['date_mort'].')
-                    </strong> 
-                    
-                    <br>
-                   '.$data['indice'].'
-                    <br>
-
-                </div>
+            
+               
 
             </div>';
            
             }
 //preparation de la carte-------------
-$sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice ,categorie FROM jcdd_contenu WHERE jeu = " .($_GET['id'])." AND categorie>0 ORDER BY RAND()" ;
+$sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice_femme ,categorie FROM jcdd_contenu WHERE jeu = ?  AND categorie>0 ORDER BY RAND()" ;
         
         $req = $link->prepare($sql);
-        $req -> execute();
+        $req -> execute([$_GET['id']]);
         $moyennelg=0;
         $moyennelt=0;
         $compteur=0;
@@ -382,8 +333,7 @@ $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice ,cat
             
 //            if($(this).attr("id").replace("p","")==meilleurMarker.attr("id").replace("m",""))
             $(document).on("click",'.marker',function(){
-                
-                console.log ('ca marche XX');
+//                pop_up();
             })
         
 //        $('#target').droppable({
@@ -398,7 +348,7 @@ $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice ,cat
     })
         
         
-        mapboxgl.accessToken = '<?php include("keyG.php"); ?>';
+        mapboxgl.accessToken = '<?php echo ($clefApiMapbox);  ?>';
         var map = new mapboxgl.Map({
             style: 'https://data.osmbuildings.org/0.2/anonymous/style.json',
             center: [ <?php echo $moyennelg; ?> , <?php echo $moyennelt; ?> ],
@@ -489,11 +439,10 @@ $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice ,cat
                 type: 'FeatureCollection',
                 features: [ <?php
 
-                    $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice, adresse ,categorie FROM jcdd_contenu WHERE jeu = ".($_GET['id']).
-                    " AND categorie>0 ORDER BY RAND()";
+                    $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice_lieu, adresse ,categorie FROM jcdd_contenu WHERE jeu = ? AND categorie>0 ORDER BY RAND()";
 
                     $req = $link -> prepare($sql);
-                    $req -> execute();
+                    $req -> execute([$_GET['id']]);
 //                    $x= $lg-10;
 //                    $y= $lt-10;
                     

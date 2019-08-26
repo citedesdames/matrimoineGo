@@ -5,17 +5,39 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="description" content="Jeux cité des dames">
+    <meta name="description" content="MatrimoineGo">
     <title>
-    <?php
-    $titreJeu = "MatrimoineGo";
+     <?php
+        
+        //----------chargement du site soit local soit université---------------------------
+        include ('jeuConnexion.php');
+        
+        //----------chargement du site soit local soit université--------------------------
+    
+      
     echo $titreJeu;
     ?>
     </title>
 <!--    <link rel="shortcut icon" href="">-->
     <link rel="stylesheet" href="css/style.css">
+    <!------------------------------jquery-------------------------->
+<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+<script src="http://code.jquery.com/ui/1.8.21/jquery-ui.min.js"></script>
     
-
+    <script src="js/matrimoineGo.js"></script>
+    
+   
+     <script>
+    $(document).ready(function() {
+            
+            pop_up("<?php echo $choix_jeu; ?>","","",true);
+        
+            close();
+        
+    })
+    
+    </script>    
+    
 </head>
 
 <body class="body2">
@@ -30,7 +52,7 @@
         //----------chargement du site soit local soit université---------------------------
 
     
-   $sql = "SELECT id_jeu,nom_jeu,photo FROM jcdd_jeux ";
+   $sql = "SELECT id_jeu,nom_jeu,photo FROM jcdd_jeu ";
 // On prépare la requête avant l'envoi :
 $req = $link->prepare($sql);
 $req -> execute();
