@@ -96,6 +96,7 @@
             
             //création d'une modale
            console.log( score);
+            
             pop_up('Ton score est de '+score+'.','Etape suivante','drag.php?id=<?php echo $_GET['id']; ?>&amp;score='+score,false);
         
         }    
@@ -145,7 +146,7 @@
 
 <script>
 $("#f'.$data['id'].'").click(function() {
-            pop_up( "<strong style=\"color:#D07A25; font-size:1.5rem;margin:2px;\">'.$data['femme'].' ('.$data['date_naissance'].'-'.$data['date_mort'].')</strong><br>'.$data['indice_femme'].' <br>","","",true);    
+            pop_up( "<strong style=\"color:#D07A25; font-size:1.5rem;margin:2px;\">'.$data['femme'].' ('.$data['date_naissance'].'-'.$data['date_mort'].')</strong><br>'.str_replace('"','\\"',$data['indice_femme']).' <br>","","",true);    
             })
 </script>
             

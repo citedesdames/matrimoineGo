@@ -1,6 +1,7 @@
 
 function pop_up (texte,txtButton,urlButton,croix){
-    
+    $(".modal").remove();
+//    console.log ($(".modal"));
     if(croix){
         
        $("body").append( '<div class="modal"><img class="close" src="img/icon/close.png" alt="fermer la fenêtre" title="fermer">'+texte+'</div>');
