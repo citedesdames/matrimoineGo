@@ -15,6 +15,9 @@ $accueil_jeu="Relis chaque Portait de chaque femme en les déplaçant avec ton d
 
 $accueil_drag="Classe les artiste ensemble, grâce aux informations que tu as eu à la première étape tu peux maintenant classer ces femmes en 2 catégories. Déplace les photos des femmes vers l'endroit qui te semble les plus approprié.";
 
-$choix_jeu="Choisis le parcours que tu veux effectuer."
+$choix_jeu="Choisis le parcours que tu veux effectuer.";
+
+    
+$bienvenue=" <p><strong>Bienvenue sur MatrimoineGo !</strong></p><p>Grâce à MoitrimoineGo tu vas pouvoir connaître les grandes artistes de ta ville.Le but est de retrouver quelle femmes correspond à quelle oeuvres.</p><p>Tu peux décider de le faire depuis chez toi ou en allant sur place:</p>";
 
 ?>

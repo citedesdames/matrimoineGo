@@ -28,13 +28,7 @@
     
    
      <script>
-    $(document).ready(function() {
-            
-            pop_up("<?php echo $choix_jeu; ?>","","",true);
-        
-            close();
-        
-    })
+
     
     </script>    
     

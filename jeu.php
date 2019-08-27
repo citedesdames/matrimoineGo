@@ -15,7 +15,6 @@
     <!--    <link rel="shortcut icon" href="">-->
     <link rel="stylesheet" href="css/style.css">
 
-<script src="js/matrimoineGo.js"></script>
 <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>-->
 <!------------------------------jquery-------------------------->
 <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
@@ -36,7 +35,8 @@
 
     <!----------------------------------------zingtouch-------------------------------->
 
-   
+   <script src="js/matrimoineGo.js"></script>
+
         <?php
         
         //----------chargement du site soit local soit université---------------------------
@@ -97,7 +97,7 @@
             //création d'une modale
            console.log( score);
             
-            pop_up('Ton score est de '+score+'.','Etape suivante','drag.php?id=<?php echo $_GET['id']; ?>&amp;score='+score,false);
+            pop_up('Ton score est de '+score+'.','Etape suivante','drag.php?id=<?php echo $_GET['id']; ?>&amp;score='+score,false,false);
         
         }    
         
@@ -106,7 +106,7 @@
 
         $(document).ready(function() {
             
-            pop_up("<?php echo $accueil_jeu; ?>","","",true);
+            pop_up("<?php echo $accueil_jeu; ?>","","",true,false);
             
         // initialisation du score
         $("#Tscore").html(score);
@@ -147,18 +147,18 @@
             $balise_A_fermante="";
             if ($data['photo_lieu_source']!="") {
                 $balise_A_fermante="</a>";
-                $balise_A_ouvrante='<a href=\\"'.$data['photo_lieu_source'].'\\">';
+                $balise_A_ouvrante='<a href=\\"'.$data['photo_lieu_source'].' \\"rel=\\"follow\\" target=\\"_blank\\">';
 
             }
             echo '<div  id="p'.$data['id'].'" class="relative"><img src="'.$data['photo_femme'].'" class="photoFemme" id="i'.$data['id'].'" alt="'.$data['femme'].'"><img class="questionMark" id="f'.$data['id'].'" src="img/icon/question-markB.png" alt="bouton qui est-ce" title="qui est-ce ?">
 
 <script>
 $("#f'.$data['id'].'").click(function() {
-            pop_up( "<strong style=\"color:#D07A25; font-size:1.5rem;margin:2px;\">'.$data['femme'].' ('.$data['date_naissance'].'-'.$data['date_mort'].')</strong><br>'.str_replace('"','\\"',$data['indice_femme']).' <br>","","",true);    
+            pop_up( "<strong style=\"color:#D07A25; font-size:1.5rem;margin:2px;\">'.$data['femme'].' ('.$data['date_naissance'].'-'.$data['date_mort'].')</strong><br>'.str_replace('"','\\"',$data['indice_femme']).' <br>","","",true,false);    
             });
             
              $(document).on("click","#m'.$data['id'].'",function(){
-                pop_up("'.$data['indice_lieu'].'<br><img style=\"position:relative; max-height: 20vh;max-width: 40%;\" src=\"'.$data['photo_lieu'].'\" alt=\"\"><br><small><small>'.$balise_A_ouvrante.$data['photo_lieu_licence'].$balise_A_fermante.'</small></small>","","",true);
+                pop_up("'.$data['indice_lieu'].'<br><img class=\"imgIndiceLieu\" src=\"'.$data['photo_lieu'].'\" alt=\"\"><br><small><small>'.$balise_A_ouvrante.$data['photo_lieu_licence'].$balise_A_fermante.'</small></small><h2>Bonus Quizz</h2> <h4>'.$data['question_quizz'].'</h4><br><label for=\"rep1\">'.$data['reponse1'].'</label><input type=\"checkbox\" id=\"rep1\" name=\"rep1\" data-reponse1=\"'.$data['ok_reponse1'].'\"><br><label for=\"rep2\">'.$data['reponse2'].'</label><input type=\"checkbox\" id=\"rep2\" name=\"rep2\"data-reponse2=\"'.$data['ok_reponse2'].'\"><br><label for=\"rep3\">'.$data['reponse3'].'</label><input type=\"checkbox\" id=\"rep3\" name=\"rep3\"data-reponse3=\"'.$data['ok_reponse3'].'\"><br><input class=\"butSol\" type=\"submit\" value=\"Solution\">","","",false,true);
 
             });
 </script>
@@ -512,7 +512,6 @@ $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice_femm
     
 </div>
     
-
 
 </body>
 

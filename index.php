@@ -28,11 +28,14 @@
 
             include ('jeuConnexion.php');
         //----------chargement du site soit local soit université---------------------------
+        echo $bienvenue
+            
+            
         ?>
-       <p><strong>Bienvenu sur <?php echo $titreJeu; ?> !</strong></p>
+      
        
-       <p>Grâce à MoitrimoineGo tu vas pouvoir connaître les grandes artistes de ta ville.Le but est de retrouver quelle femmes correspond à quelle oeuvres.</p>
-    <p>Tu peux décider de le faire depuis chez toi ou en allant sur place:</p>
+      
+    
            
 
        <a href="choix_jeux.php" class="but">Commencer !</a>

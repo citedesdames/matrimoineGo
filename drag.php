@@ -17,7 +17,6 @@
     </title>
     <!--    <link rel="shortcut icon" href="">-->
     <link rel="stylesheet" href="css/style.css">
-    <script src="js/matrimoineGo.js"></script>
 <!------------------------- jquery ui ---------------------------->
 <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
 <script src="http://code.jquery.com/ui/1.8.21/jquery-ui.min.js"></script>
@@ -26,8 +25,10 @@
 
 
 
-
     
+    
+<script src="js/matrimoineGo.js"></script>
+       
     <?php
         
         //----------chargement du site soit local soit université---------------------------
@@ -85,7 +86,7 @@ $(document).on("click",".nbrErreur",function() {
             
             //création d'une modale
 
-            pop_up("<div class=\"modalFin\"><p>"+message_felicitation+"</p><div>Ton score est de "+scoreMj+"</div><div>Les 2 catégories étaient : <?php echo $categorieA; ?> et <?php echo $categorieB; ?></div>)","RETOUR MENU","choix_jeux.php",false);
+            pop_up("<div class=\"modalFin\"><p>"+message_felicitation+"</p><div>Ton score est de "+scoreMj+"</div><div>Les 2 catégories étaient : <?php echo $categorieA; ?> et <?php echo $categorieB; ?></div>)","RETOUR MENU","choix_jeux.php",false,false);
             
             
         
@@ -127,7 +128,7 @@ $(document).on("click",".nbrErreur",function() {
         
       <script type="text/javascript">$(document).ready(function() {
               
-              pop_up("<?php echo $accueil_drag ?>","","",true);
+              pop_up("<?php echo $accueil_drag ?>","","",true,false);
               
               close();
         
