@@ -5,12 +5,12 @@ function pop_up (texte,txtButton,urlButton,croix,grandeModal){
 //    console.log ($(".modal"));
     if(croix){
         
-       $("body").append( '<div class="modal" style="display:none"><img class="close" src="img/icon/close.png" alt="fermer la fenêtre" title="fermer">'+texte+'</div>');
+       $("body").append( '<div class="modal" style="display:none"><div class="onglet"><img class="close" src="img/icon/close.png" alt="fermer la fenêtre" title="fermer"></div><p class="padding">'+texte+'</p>');
         $(".modal").fadeIn(200);
         
     }
     else if(grandeModal){
-        $("body").append( '<div class="modalGrande"  style="display:none"><img class="close" src="img/icon/close.png" alt="fermer la fenêtre" title="fermer">'+texte+'</div>');
+        $("body").append( '<div class="modalGrande"  style="display:none"><div class="onglet"><img class="close" src="img/icon/close.png" alt="fermer la fenêtre" title="fermer"></div><div class="padding1">'+texte+'</div>');
         $(".modalGrande").fadeIn(200);
     }
     else{
@@ -25,7 +25,7 @@ function close(){
     
 
 $(document).on("click",".close",function() {
-                $(this).parent().remove();
+                $(this).parent().parent().remove();
                 
 
             })

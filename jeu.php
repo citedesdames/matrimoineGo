@@ -13,7 +13,6 @@
     ?>
     </title>
     <!--    <link rel="shortcut icon" href="">-->
-    <link rel="stylesheet" href="css/style.css">
 
 <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>-->
 <!------------------------------jquery-------------------------->
@@ -36,6 +35,8 @@
     <!----------------------------------------zingtouch-------------------------------->
 
    <script src="js/matrimoineGo.js"></script>
+   <link rel="stylesheet" href="css/style.css">
+
 
         <?php
         
@@ -158,7 +159,7 @@ $("#f'.$data['id'].'").click(function() {
             });
             
              $(document).on("click","#m'.$data['id'].'",function(){
-                pop_up("'.$data['indice_lieu'].'<br><img class=\"imgIndiceLieu\" src=\"'.$data['photo_lieu'].'\" alt=\"\"><br><small><small>'.$balise_A_ouvrante.$data['photo_lieu_licence'].$balise_A_fermante.'</small></small><h2>Bonus Quizz</h2> <h4>'.$data['question_quizz'].'</h4><br><label for=\"rep1\">'.$data['reponse1'].'</label><input type=\"checkbox\" id=\"rep1\" name=\"rep1\" data-reponse1=\"'.$data['ok_reponse1'].'\"><br><label for=\"rep2\">'.$data['reponse2'].'</label><input type=\"checkbox\" id=\"rep2\" name=\"rep2\"data-reponse2=\"'.$data['ok_reponse2'].'\"><br><label for=\"rep3\">'.$data['reponse3'].'</label><input type=\"checkbox\" id=\"rep3\" name=\"rep3\"data-reponse3=\"'.$data['ok_reponse3'].'\"><br><input class=\"butSol\" type=\"submit\" value=\"Solution\">","","",false,true);
+                pop_up("'.$data['indice_lieu'].'<br><img class=\"imgIndiceLieu\" src=\"'.$data['photo_lieu'].'\" alt=\"\"><br><small style=\"\margin-left:auto;margin-right:auto;\"><small>'.$balise_A_ouvrante.$data['photo_lieu_licence'].$balise_A_fermante.'</small></small><h2>Bonus Quizz</h2> <h4 style=\"margin:0;\">'.$data['question_quizz'].'</h4><br><input type=\"checkbox\" id=\"rep1\" name=\"rep1\" data-reponse1=\"'.$data['ok_reponse1'].'\"><label for=\"rep1\">'.$data['reponse1'].'</label><br><input type=\"checkbox\" id=\"rep2\" name=\"rep2\"data-reponse2=\"'.$data['ok_reponse2'].'\"><label for=\"rep2\">'.$data['reponse2'].'</label><br><input type=\"checkbox\" id=\"rep3\" name=\"rep3\"data-reponse3=\"'.$data['ok_reponse3'].'\"><label for=\"rep3\">'.$data['reponse3'].'</label><br><input class=\"butSol\" type=\"submit\" value=\"Solution\">","","",false,true);
 
             });
 </script>
@@ -314,7 +315,10 @@ $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice_femm
                     meilleurMarker.removeClass('markerB');
                     meilleurMarker.css('background-image',"url("+ui.helper.context.firstElementChild.currentSrc+")");
                         
-                    
+//                    $("#f'.$data['id'].'") (function() {
+//            pop_up( "<strong style=\"color:#D07A25; font-size:1.5rem;margin:2px;\">'.$data['femme'].' ('.$data['date_naissance'].'-'.$data['date_mort'].')</strong><br>'.str_replace('"','\\"',$data['indice_femme']).' <br>","","",true,false);    
+//            });
+                         
 
                     }
                     else{
