@@ -102,13 +102,17 @@
         
         }    
         
-
+        function devoileCarte(){
+            
+            $(".relative").animate({top:"0vh"},2000);
+        }
         
 
         $(document).ready(function() {
             
             pop_up("<?php echo $accueil_jeu; ?>","","",true,false);
             
+            devoileCarte();
         // initialisation du score
         $("#Tscore").html(score);
   
@@ -119,7 +123,7 @@
 
             map.addControl(new mapboxgl.GeolocateControl({positionOptions: {enableHighAccuracy: true},trackUserLocation: true}));
 
-
+            
 
         });
         
@@ -358,7 +362,7 @@ $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice_femm
         var map = new mapboxgl.Map({
             style: 'https://data.osmbuildings.org/0.2/anonymous/style.json',
             center: [ <?php echo $moyennelg; ?> , <?php echo $moyennelt; ?> ],
-            zoom: 13.5,
+            zoom: 14.5,
             pitch: 45,
             bearing: -17.6,
             container: 'map'
