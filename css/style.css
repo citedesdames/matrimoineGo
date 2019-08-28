@@ -286,10 +286,10 @@ a{
     
     padding: 20px;
 }
-
-.padding{
+p{
     padding: 5px 20px;
 }
+
 .padding1{
     padding: 5px 20px;
     overflow-y: auto;
@@ -396,7 +396,11 @@ a{
     width: 32px;
 }
 
-
+.center{
+    font-size: 0.6rem;
+    text-align: center;
+    margin-top: -20px;
+}
 /*---------------------------------------------drag2-------------------------------------*/
 
 
@@ -433,12 +437,14 @@ a{
 
 /*--------------------------checkbox------------------------------------------*/
 
+/*
 .checked{
     height: 50px;
     background-image: url(../img/icon/check-square-solid.svg);
     
     
 }
+*/
 /*---------------------------------------drag php---------------------------------------------------*/
 .body4 {
     background-color: rgba(1,2,2,0.3);

@@ -118,7 +118,6 @@
   
     
             
-            close();
 
 
             map.addControl(new mapboxgl.GeolocateControl({positionOptions: {enableHighAccuracy: true},trackUserLocation: true}));
@@ -163,7 +162,7 @@ $("#f'.$data['id'].'").click(function() {
             });
             
              $(document).on("click","#m'.$data['id'].'",function(){
-                pop_up("'.$data['indice_lieu'].'<br><img class=\"imgIndiceLieu\" src=\"'.$data['photo_lieu'].'\" alt=\"\"><center><br><small><small>'.$balise_A_ouvrante.$data['photo_lieu_licence'].$balise_A_fermante.'</small></small></center><h2>Bonus Quizz</h2> <h4 style=\"margin:0;\">'.str_replace('"','\\"',$data['question_quizz']).'</h4><br><input type=\"checkbox\" id=\"rep1\" name=\"rep1\" data-reponse1=\"'.$data['ok_reponse1'].'\"><label for=\"rep1\">'.$data['reponse1'].'</label><br><input type=\"checkbox\" id=\"rep2\" name=\"rep2\"data-reponse2=\"'.$data['ok_reponse2'].'\"><label for=\"rep2\">'.$data['reponse2'].'</label><br><input type=\"checkbox\" id=\"rep3\" name=\"rep3\"data-reponse3=\"'.$data['ok_reponse3'].'\"><label for=\"rep3\">'.$data['reponse3'].'</label><br><input class=\"butSol\" type=\"submit\" value=\"Solution\">","","",false,true);
+                pop_up("'.$data['indice_lieu'].'<br><img class=\"imgIndiceLieu\" src=\"'.$data['photo_lieu'].'\" alt=\"\"><div class=\"center\"><br>'.$balise_A_ouvrante.$data['photo_lieu_licence'].$balise_A_fermante.'</div><h2>Bonus Quizz</h2> <h4 style=\"margin:0;\">'.str_replace('"','\\"',$data['question_quizz']).'</h4><br><input type=\"checkbox\" id=\"rep1\" name=\"rep1\" data-reponse1=\"'.$data['ok_reponse1'].'\"><label for=\"rep1\">'.$data['reponse1'].'</label><br><input type=\"checkbox\" id=\"rep2\" name=\"rep2\"data-reponse2=\"'.$data['ok_reponse2'].'\"><label for=\"rep2\">'.$data['reponse2'].'</label><br><input type=\"checkbox\" id=\"rep3\" name=\"rep3\"data-reponse3=\"'.$data['ok_reponse3'].'\"><label for=\"rep3\">'.$data['reponse3'].'</label><br><input class=\"butSol\" type=\"submit\" value=\"Solution\">","","",false,true);
 
             });
 </script>

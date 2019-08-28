@@ -82,7 +82,7 @@ function finNiveau(){
     }
       
     // Affichage d'une fenêtre modale avec le score et le message final
-    pop_up("<div class=\"modalFin\"><div><p>Vous avez fait "+erreur+" erreurs : il fallait rassembler les créatrices de la catégorie «&nbsp;<?php echo $categorieA;?>&nbsp;» (<?php echo $femmesCategorieA;?>) et de la catégorie «&nbsp;<?php echo $categorieB;?>&nbsp;» (<?php echo $femmesCategorieB;?>).<br/><?php echo $texte_fin;?></p></div><div><p>Votre score final est de "+scoreMj+"<br/><b>"+message_felicitation+"</b></p></div>","Retour à la liste des jeux","choix_jeux.php",false,false);
+    pop_up("<div class=\"modalFin\"><div><p>Vous avez fait "+erreur+" erreurs : il fallait rassembler les créatrices de la catégorie «&nbsp;<?php echo $categorieA;?>&nbsp;» (<?php echo $femmesCategorieA;?>) et de la catégorie «&nbsp;<?php echo $categorieB;?>&nbsp;» (<?php echo $femmesCategorieB;?>).<br/><?php echo $texte_fin;?></p></div><div><p>Votre score final est de "+scoreMj+"<br/><b>"+message_felicitation+"</b></p></div>","Retour à la liste des jeux","choix_jeux.php",false,true);
 
 }
 
@@ -126,7 +126,6 @@ while($data = $req -> fetch()){
 pop_up("<?php echo $accueil_drag ?>","","",true,false);
               
 // Fermeture de toute fenêtre modale ouverte quand on clique sur la croix de la fenêtre
-close();
         
 // Gestion des actions de glisser-déplacer des portraits
 $('.photoFemme2').draggable({

@@ -19,7 +19,7 @@ function pop_up (texte,txtButton,urlButton,croix,grandeModal){
     $("body").append('<div class="modal"  style="display:none"><div>'+texte+'<a class="buto" href="'+urlButton+'">'+txtButton+'</a></div></div>');
     $(".modal").fadeIn(200);
     }
-    
+    close();
     
 }
 
@@ -39,6 +39,8 @@ $(document).on("click",".close",function() {
             })
 }
 function check (){
+    
+    // cette partie est pour verifier si les bouton sont coché
     var testQuizz1=true;
     if ($("#rep1").attr("data-reponse1")=="0"){
         testQuizz1=false;
@@ -51,7 +53,39 @@ function check (){
 //      $('#rep1').remove();
 //        
         console.log("yeeees");
+    }var testQuizz1=true;
+    if ($("#rep1").attr("data-reponse1")=="0"){
+        testQuizz1=false;
     }
+    console.log(testQuizz1);
+    console.log($("#rep2").attr("data-reponse2"));
+    
+    if (testQuizz1==$("#rep2").prop("checked")){
+//        $('#rep1').addClass('checked');
+//      $('#rep1').remove();
+//        
+        console.log("yeeees2");
+    }
+    
+    var testQuizz1=true;
+    if ($("#rep3").attr("data-reponse3")=="0"){
+        testQuizz1=false;
+    }
+    console.log(testQuizz1);
+    console.log($("#rep3").attr("data-reponse3"));
+    
+    if (testQuizz1==$("#rep1").prop("checked")){
+//        $('#rep1').addClass('checked');
+//      $('#rep1').remove();
+//        
+        console.log("yeeees3");
+    }
+    
+    
+    
+    
+    
+    
 //    else{
 //      $('#rep1').addclass('');  
 //    }
