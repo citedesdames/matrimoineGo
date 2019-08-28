@@ -19,12 +19,11 @@ include ('jeuConnexion.php');
 <body class="body2">
     <!--<h1 class="titreBlanc"><?php echo $titreJeu; ?> </h1>-->
     <div style="width:100%;text-align:center;">
-       <img src="./img/logo.png" alt="Matrimoine GO - Paris" style="width:50%;text-align:center;max-width:250px;margin:20px;">
+       <img src="./img/logo.png" alt="Logo <?php echo $titreJeu; ?>" style="width:50%;text-align:center;max-width:250px;margin:20px;">
     </div>
     <div class="containerBut">
-        <p style="margin-left:20%;margin-right:20%"><?php echo $bienvenue; ?></p>
+        <?php echo $bienvenue; ?>
         <a href="choix_jeux.php" class="but">Commencer !</a>
-    
         <div class="bas"><small><i>Un <a href="https://github.com/Avgilles/jeuxCiteDesDames/">jeu</a> réalisé par <a href="http://gillesavraam.com">Gilles Avraam</a>, sur un concept d'<a href="http://matrimoinedeparis.com">Edith Vallée</a> d'après son livre <i><a href="http://matrimoinedeparis.com/">Le matrimoine de Paris</a></i></i></small>.<br/>
             <button class="nbrErreur js-aPropos" style="background-color:#999999;">À propos...</button>
         </div>
