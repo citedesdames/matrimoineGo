@@ -2,6 +2,7 @@
 function pop_up (texte,txtButton,urlButton,croix,grandeModal){
     $(".modal").remove();
     $(".modalGrande").remove();
+    $(".onglet1").remove();
 //    console.log ($(".modal"));
     if(croix){
         
@@ -10,8 +11,9 @@ function pop_up (texte,txtButton,urlButton,croix,grandeModal){
         
     }
     else if(grandeModal){
-        $("body").append( '<div class="modalGrande"  style="display:none"><div class="onglet"><img class="close" src="img/icon/close.png" alt="fermer la fenêtre" title="fermer"></div><div class="padding1">'+texte+'</div>');
+        $("body").append( '<div class="onglet1" style="display:"none"><img class="close1" src="img/icon/close.png" alt="fermer la fenêtre" title="fermer"></div><div class="modalGrande"  style="display:none"><div class="padding1">'+texte+'</div>');
         $(".modalGrande").fadeIn(200);
+        $(".onglet1").fadeIn(200);
     }
     else{
     $("body").append('<div class="modal"  style="display:none"><div>'+texte+'<a class="buto" href="'+urlButton+'">'+txtButton+'</a></div></div>');
@@ -26,6 +28,12 @@ function close(){
 
 $(document).on("click",".close",function() {
                 $(this).parent().parent().remove();
+                
+
+            })
+    $(document).on("click",".close1",function() {
+                $('.modalGrande').remove();
+                $(this).parent().remove();
                 
 
             })

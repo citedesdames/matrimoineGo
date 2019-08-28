@@ -35,7 +35,7 @@
 </head>
 
 <body class="body2">
-   <h1 class="titreBlanc">Choix du jeux</h1>
+   <h1 class="titreBlanc">Choix du jeu </h1>
    
     <div class="container">
         <?php

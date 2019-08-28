@@ -20,4 +20,5 @@ $choix_jeu="Choisis le parcours que tu veux effectuer.";
     
 $bienvenue=" <p><strong>Bienvenue sur MatrimoineGo !</strong></p><p>Grâce à MoitrimoineGo tu vas pouvoir connaître les grandes artistes de ta ville.Le but est de retrouver quelle femmes correspond à quelle oeuvres.</p><p>Tu peux décider de le faire depuis chez toi ou en allant sur place:</p>";
 
+
 ?>

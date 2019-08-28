@@ -57,13 +57,15 @@ a{
     display: block;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 8px;
+    margin-bottom: 8px;
     background-color: #010202;
     color: white;
     padding: 10px;
     border: 0px;
     font-size: 1.2rem;
     font-family: 'Semplicita';
-
+    
     
     
 }
@@ -284,13 +286,7 @@ a{
     
     padding: 20px;
 }
-.onglet{
-    display: block;
-    position: relative;
-    border-bottom: 1px solid rgba(1,2,2,0.3);
-    padding: 5px;
-    margin: 0;
-}
+
 .padding{
     padding: 5px 20px;
 }
@@ -303,18 +299,40 @@ a{
   
     transform: translateX(-50%);
     left: 50%;
-    top: 15%;
-    bottom: 10%;
+    top: 20vh;
+    bottom: 10vh;
     width: 95%;
-    z-index: 20;
+    z-index: 10;
     position: absolute;
     min-height: 30vh;
     background-color: #ffffff;
-    z-index: 1000;
     color: #010202;
     font-family:'Semplicita';
     overflow-y: auto;
 }
+.onglet{
+
+    display: block;
+    position: relative;
+    border-bottom: 1px solid rgba(1,2,2,0.3);
+    padding: 5px;
+    margin: 0;
+}
+.onglet1{
+    top: 15vh;
+    left: 2.5%;
+    width: 95%;
+    height: auto;
+    background-color: white;
+    z-index: 11;
+    display: block;
+    position: fixed;
+    border-bottom: 1px solid rgba(1,2,2,0.3);
+    padding: 5px;
+    margin: 0;
+}
+
+
 .fixed{
     position: fixed;
     width: 80%;
@@ -351,6 +369,7 @@ a{
     bottom: 0;
     border-style: solid;
     border-width: 1.2px 0px 0px 0px;
+    z-index: 11;
 
 }
 
@@ -369,6 +388,14 @@ a{
     left: 0px;
     width: 32px;
 }
+.close1 {
+    display: block;
+    margin-left: auto;
+    padding:  8px;
+    left: 0px;
+    width: 32px;
+}
+
 
 /*---------------------------------------------drag2-------------------------------------*/
 
