@@ -35,7 +35,7 @@
 </head>
 
 <body class="body2">
-   <h1 class="titreBlanc"><?php echo $titreJeu; ?> </h1>
+   <h1 class="titreBlanc">Choix du jeux</h1>
    
     <div class="container">
         <?php
@@ -54,7 +54,7 @@ $req -> execute();
 
 while($data = $req -> fetch()){
   // On affiche chaque résultat sous forme d'un item de la liste
-  echo '<div class="flexBox" id="'.$data['id_jeu'].'"><a class="centre" href="./jeu.php?id='.$data['id_jeu'].'" > <div class="titreJeu">'.$data['nom_jeu'].',</div><img class="box" src="'.$data['photo'].'" ></a></div>';
+  echo '<div class="flexBox" id="'.$data['id_jeu'].'"><a class="centre" href="./jeu.php?id='.$data['id_jeu'].'" > <div class="titreJeu">'.$data['nom_jeu'].'</div><img class="box" src="'.$data['photo'].'" ></a></div>';
 }
 $req = null;
 

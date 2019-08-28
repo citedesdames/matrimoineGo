@@ -34,7 +34,7 @@ while($donnee = $req1 -> fetch()){
     $categorieA = $donnee['categorie_1'];
     $categorieB = $donnee['categorie_2'];
     $accueil_drag = $donnee['accueil_drag'];
-    $texte_fin = $donnee['texte_fin'];
+    $texte_fin = str_replace('"', '\"', $donnee['texte_fin']);
 }
 
 // Récupération dans la base de données des noms de femmes dans chaque catégorie

@@ -45,9 +45,9 @@ a{
 .titreBlanc {
     margin: 0;
     padding: 0;
-    font-family: 'rouge Script';
-    color: white;
-    font-size: 4rem;
+    font-family:'Semplicita' ;
+    color: #010202;
+    font-size: 3rem;
     text-align: center;
     width: 100%;
 
@@ -108,7 +108,7 @@ a{
     margin: 2%;
     position: relative;
     overflow: hidden;
-    border: solid 3px #DD4A4A;
+    border: solid 2px #B56800;
     background-color: rgba(229, 202, 174, 0.3);
 }
 
@@ -279,6 +279,10 @@ a{
     color: #010202;
     font-family:'Semplicita';
 }
+.modalFin{
+    
+    padding: 20px;
+}
 .onglet{
     display: block;
     position: relative;
@@ -409,7 +413,7 @@ a{
 }
 /*---------------------------------------drag php---------------------------------------------------*/
 .body4 {
-
+    background-color: rgba(1,2,2,0.3);
     margin: 0;
     padding: 0;
     width: 100%;
@@ -434,13 +438,13 @@ a{
 }
 
 .left {
-    height: 60vh;
+    height: 80vh;
     width: 50%;
     border-right: solid;
 }
 
 .right {
-    height: 60vh;
+    height: 80vh;
     width: 50%;
 
 }
@@ -448,7 +452,7 @@ a{
 .contain {
     display: flex;
     background-color: #E4F2F1;
-    height: 60vh;
+    height: 80vh;
 }
 
 .cat1 {
@@ -475,6 +479,16 @@ a{
 }
 
 .nbrErreur {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #010202;
+    color: white;
+    padding: 10px;
+    border: 0px;
+    font-size: 1.2rem;
+    font-family: 'Semplicita-bold';
+/*
     margin-left: auto;
     margin-right: auto;
     display: block;
@@ -482,4 +496,5 @@ a{
     font-size: 1rem;
     font-family: 'Semplicita-bold';
     width: 40%;
+*/
 }
