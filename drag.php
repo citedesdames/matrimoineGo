@@ -42,18 +42,18 @@ $sql = "SELECT id, jeu, photo_femme, femme, categorie  FROM jcdd_contenu WHERE c
 
 $req = $link->prepare($sql);
 $req -> execute([$_GET['id']]);
-$femmesCategorieA = ".";
-$femmesCategorieB = ".";
+$femmesCategorieA = "";
+$femmesCategorieB = "";
 while($data = $req -> fetch()){
     if($data["categorie"]=="1"){
         if(strlen($femmesCategorieA) > 0){
-           $femmesCategorieA .= ",";
+           $femmesCategorieA .= ", ";
         }
         $femmesCategorieA .= $data["femme"];
     }
     if($data["categorie"]=="2"){
         if(strlen($femmesCategorieB) > 0){
-           $femmesCategorieB .= ",";
+           $femmesCategorieB .= ", ";
         }
         $femmesCategorieB .= $data["femme"];
     }
@@ -82,7 +82,7 @@ function finNiveau(){
     }
       
     // Affichage d'une fenêtre modale avec le score et le message final
-    pop_up("<div class=\"modalFin\"><div><p>Vous avez fait "+erreur+" erreurs : il fallait rassembler les créatrices de la catégorie <?php echo $categorie_A;?> () et de la catégorie <?php echo $categorie_B;?> ().<br/><?php echo $texte_fin;?></p></div><div><p>Votre score final est de "+scoreMj+"<br/><b>"+message_felicitation+"</b></p></div>","Retour à la liste des jeux","choix_jeux.php",false,false);
+    pop_up("<div class=\"modalFin\"><div><p>Vous avez fait "+erreur+" erreurs : il fallait rassembler les créatrices de la catégorie «&nbsp;<?php echo $categorieA;?>&nbsp;» (<?php echo $femmesCategorieA;?>) et de la catégorie «&nbsp;<?php echo $categorieB;?>&nbsp;» (<?php echo $femmesCategorieB;?>).<br/><?php echo $texte_fin;?></p></div><div><p>Votre score final est de "+scoreMj+"<br/><b>"+message_felicitation+"</b></p></div>","Retour à la liste des jeux","choix_jeux.php",false,false);
 
 }
 
