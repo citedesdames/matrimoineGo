@@ -1,22 +1,49 @@
+//intro-js
+
+
+
+
+
+
+
+
+
 
 function pop_up (texte,txtButton,urlButton,croix,grandeModal){
+    var codeModal="";
+    if (grandeModal){codeModal="1";}
+    
+    var boutonSuite='';
+    
+    var titre="";
+    
+    
+    var imgCroix='<img class="close'+codeModal+'" src="img/icon/close.png" alt="fermer la fenêtre" title="fermer">';
+    
+//    if(){
+//        titre="<p><strong style=\"color:#FC706D; font-size:1.5rem;margin:2px;\">'.$data['femme'].' ('.$data['date_naissance'].'-'.$data['date_mort'].')</strong></p>";
+//       }
+    
+    if(croix==false){
+        imgCroix="";
+        boutonSuite='<a class="buto" href="'+urlButton+'">'+txtButton+'</a>';
+    }
+    var onglet='<div class="onglet'+codeModal+'" style="display:"none">'+titre+imgCroix+'</div>';
+
+    
     $(".modal").remove();
     $(".modalGrande").remove();
     $(".onglet1").remove();
+    $(".remove").remove();
+    
 //    console.log ($(".modal"));
-    if(croix){
-        
-       $("body").append( '<div class="modal" style="display:none"><div class="onglet"><img class="close" src="img/icon/close.png" alt="fermer la fenêtre" title="fermer"></div><p class="padding">'+texte+'</p>');
-        $(".modal").fadeIn(200);
-        
-    }
-    else if(grandeModal){
-        $("body").append( '<div class="onglet1" style="display:"none"><img class="close1" src="img/icon/close.png" alt="fermer la fenêtre" title="fermer"></div><div class="modalGrande"  style="display:none"><div class="padding1">'+texte+'</div>');
+ 
+    if(grandeModal){
+        $("body").append( '<div class="remove">'+onglet+'<div class="modalGrande"  style="display:none"><div class="padding1">'+texte+boutonSuite+'</div></div>');
         $(".modalGrande").fadeIn(200);
         $(".onglet1").fadeIn(200);
-    }
-    else{
-    $("body").append('<div class="modal"  style="display:none"><div>'+texte+'<a class="buto" href="'+urlButton+'">'+txtButton+'</a></div></div>');
+    }else{
+    $("body").append('<div class="modal"  style="display:none">'+onglet+'<div>'+texte+boutonSuite+'</div></div>');
     $(".modal").fadeIn(200);
     }
     close();
@@ -33,7 +60,7 @@ $(document).on("click",".close",function() {
             })
     $(document).on("click",".close1",function() {
                 $('.modalGrande').remove();
-                $(this).parent().remove();
+                $(this).parent().parent().remove();
                 
 
             })
@@ -41,69 +68,140 @@ $(document).on("click",".close",function() {
 function check (){
     
     // cette partie est pour verifier si les bouton sont coché
+//    var quizzNbr="";
+//   function checkreponse(){
+//    
+//    
+//var testQuizz=true;
+//    if ($("#rep"+quizzNbr+"").attr("data-reponse"+quizzNbr+"")=="0"){
+//        testQuizz=false;
+//        
+//          if (testQuizz1==$("#rep"+quizzNbr+"").prop("checked")){
+//          $("#t_quizz"+quizzNbr+"").css({"color":"red"});
+////          console.log("noooo"+quizzNbr+"");
+//          }
+//          else{
+//          $("#t_quizz"+quizzNbr+"").css({"color":"green"});
+////          console.log("oui"+quizzNbr+"");
+//            }
+//        
+//    } 
+//    else{
+//        $("#t_quizz"+quizzNbr+"").css({"text-decoration": "underline"});
+//        
+//    }
+//    
+//    if (testQuizz==$("#rep"+quizzNbr+"").prop("checked")){
+//          $("#t_quizz"+quizzNbr+"").css({"color":"green"});
+////          console.log("yesssss"+quizzNbr+"");
+//          }
+//    else{
+//        $("#t_quizz"+quizzNbr+"").css({"color":"red"});
+////          console.log("no"+quizzNbr+"")
+//        
+//    }    
+//    };
+    
+    
     var testQuizz1=true;
     if ($("#rep1").attr("data-reponse1")=="0"){
         testQuizz1=false;
+        
+          if (testQuizz1==$("#rep1").prop("checked")){
+          $("#t_quizz1").css({"color":"red"});
+//          console.log("noooo1");
+          }
+          else{
+          $("#t_quizz1").css({"color":"green"});
+//          console.log("oui1");
+            }
+        
+    } 
+    else{
+        $("#t_quizz1").css({"text-decoration": "underline"});
+        
     }
-    console.log(testQuizz1);
-    console.log($("#rep1").attr("data-reponse1"));
     
     if (testQuizz1==$("#rep1").prop("checked")){
-//        $('#rep1').addClass('checked');
-//      $('#rep1').remove();
-//        
-        console.log("yeeees");
-    }var testQuizz1=true;
-    if ($("#rep1").attr("data-reponse1")=="0"){
-        testQuizz1=false;
+          $("#t_quizz1").css({"color":"green"});
+//          console.log("yesssss1");
+          }
+    else{
+        $("#t_quizz1").css({"color":"red"});
+//          console.log("no1")
+        
     }
-    console.log(testQuizz1);
-    console.log($("#rep2").attr("data-reponse2"));
+
     
-    if (testQuizz1==$("#rep2").prop("checked")){
-//        $('#rep1').addClass('checked');
-//      $('#rep1').remove();
-//        
-        console.log("yeeees2");
+    
+    
+    
+    var testQuizz2=true;
+    if ($("#rep2").attr("data-reponse2")=="0"){
+        testQuizz2=false;
+        
+          if (testQuizz2==$("#rep2").prop("checked")){
+          $("#t_quizz2").css({"color":"red"});
+          console.log("noooo2");
+          }
+          else{
+          $("#t_quizz2").css({"color":"green"});
+          console.log("oui2");
+            }
+        
+    } 
+    else{
+        $("#t_quizz2").css({"text-decoration": "underline"});
+        
     }
     
-    var testQuizz1=true;
+    if (testQuizz2==$("#rep2").prop("checked")){        
+          $("#t_quizz2").css({"color":"green"});
+//          console.log("yesssss2");
+          }
+    else{
+        $("#t_quizz2").css({"color":"red"});
+//          console.log("no2")
+        
+    }
+    
+  
+    
+    
+    var testQuizz3=true;
     if ($("#rep3").attr("data-reponse3")=="0"){
-        testQuizz1=false;
+        testQuizz3=false;
+        
+          if (testQuizz3==$("#rep3").prop("checked")){
+          $("#t_quizz3").css({"color":"red"});
+          console.log("noooo3");
+          }
+          else{
+          $("#t_quizz3").css({"color":"green"});
+          console.log("oui3");
+            }
+        
+    } 
+    else{
+        $("#t_quizz3").css({"text-decoration": "underline"});
+        
+        }
+        if (testQuizz3==$("#rep3").prop("checked")){
+        $("#t_quizz3").css({"color":"green"});
+          console.log("yesssss3");
+          }
+        else{
+        $("#t_quizz3").css({"color":"red"});
+          console.log("no3")
+        
     }
-    console.log(testQuizz1);
-    console.log($("#rep3").attr("data-reponse3"));
-    
-    if (testQuizz1==$("#rep1").prop("checked")){
-//        $('#rep1').addClass('checked');
-//      $('#rep1').remove();
-//        
-        console.log("yeeees3");
-    }
     
     
     
     
     
     
-//    else{
-//      $('#rep1').addclass('');  
-//    }
-//    
-//    if (data-reponse2==true){
-//      $('#rep2').addclass('');  
-//    }
-//    else{
-//      $('#rep2').addclass('');  
-//    }
-//    
-//    if (data-reponse3==true){
-//      $('#rep3').addclass('');  
-//    }
-//    else{
-//      $('#rep3').addclass('');  
-//    }
-//    
+ 
 }
 
 $(document).on("click",".butSol",function() {

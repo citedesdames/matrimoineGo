@@ -92,10 +92,8 @@ a{
     padding: 10px;
     border: 0px;
     font-size: 1.2rem;
-    font-family: 'Semplicita';
+    font-family: 'Semplicita-bold';
     margin: 20px;
-    padding: 5px;
-    margin-top: 15%;
 
 }
 
@@ -273,7 +271,6 @@ a{
     left: 50%;
     top: 20%;
     width: 95%;
-    border: 1px solid #B56800;
     z-index: 20;
     position: absolute;
     min-height: 30vh;
@@ -311,7 +308,7 @@ p{
     overflow-y: auto;
 }
 .onglet{
-
+    height: 5vh;
     display: block;
     position: relative;
     border-bottom: 1px solid rgba(1,2,2,0.3);
@@ -319,10 +316,10 @@ p{
     margin: 0;
 }
 .onglet1{
+    height: 5vh;
     top: 15vh;
     left: 2.5%;
     width: 95%;
-    height: auto;
     background-color: white;
     z-index: 11;
     display: block;
@@ -377,8 +374,6 @@ p{
     margin: 16px;
     font-size: 1rem;
     font-family: 'Semplicita-Bold';
-    
-
 }
 
 .close {
@@ -469,6 +464,9 @@ p{
 .flexx {
     background-color: #FC706D;
     display: flex;
+    justify-content: center;
+   
+    
 }
 
 .left {
