@@ -246,7 +246,7 @@ a{
     padding: 20px;
 }
 p{
-    padding: 5px 20px;
+    padding: 2px 20px;
 }
 
 .padding1{
@@ -421,13 +421,13 @@ p{
 }
 
 .left {
-    height: 80vh;
+    height: 90vh;
     width: 50%;
     border-right: solid;
 }
 
 .right {
-    height: 80vh;
+    height: 90vh;
     width: 50%;
 
 }
