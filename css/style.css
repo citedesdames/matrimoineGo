@@ -178,15 +178,9 @@ a{
     position: absolute;
     z-index: 11;
     max-width: 40%;
-/*
     right: 0px;
     bottom: 0px;
-*/
-    
-/*   à changer */
-    right: 50%;
-    transform: translateX(50%);
-    bottom: -3vh;
+
     
 }
 .imgIndiceLieu{
