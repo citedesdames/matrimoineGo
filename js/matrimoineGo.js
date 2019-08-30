@@ -1,21 +1,29 @@
 //intro-js
 
+//test si marker voit les élements
+//       function fonction_onglet(){
+//
+//           if(!($('m'+marker.id+'').hasClass('markerR')||$('m'+marker.id+'').hasClass('markerB'))){
+//              console.log("markeur bien placer");
+////           $('.remove').append('');
+//           
+//              }
+//               
+//
+//
+//}
 
 
 
 
 
-
-
-
-
-function pop_up (texte,txtButton,urlButton,croix,grandeModal){
+function pop_up (titre,texte,txtButton,urlButton,croix,grandeModal){
     var codeModal="";
     if (grandeModal){codeModal="1";}
     
     var boutonSuite='';
     
-    var titre="";
+    
     
     
     var imgCroix='<img class="close'+codeModal+'" src="img/icon/close.png" alt="fermer la fenêtre" title="fermer">';
@@ -28,7 +36,7 @@ function pop_up (texte,txtButton,urlButton,croix,grandeModal){
         imgCroix="";
         boutonSuite='<a class="buto" href="'+urlButton+'">'+txtButton+'</a>';
     }
-    var onglet='<div class="onglet'+codeModal+'" style="display:"none">'+titre+imgCroix+'</div>';
+    var onglet='<div class="onglet'+codeModal+'" style="display:"none"><span>'+titre+'</span>'+imgCroix+'</div>';
 
     
     $(".modal").remove();
@@ -39,6 +47,7 @@ function pop_up (texte,txtButton,urlButton,croix,grandeModal){
 //    console.log ($(".modal"));
  
     if(grandeModal){
+       //inserer fonction
         $("body").append( '<div class="remove">'+onglet+'<div class="modalGrande"  style="display:none"><div class="padding1">'+texte+boutonSuite+'</div></div>');
         $(".modalGrande").fadeIn(200);
         $(".onglet1").fadeIn(200);
@@ -67,10 +76,11 @@ $(document).on("click",".close",function() {
 }
 function check (){
     
-    // cette partie est pour verifier si les bouton sont coché
+////     cette partie est pour verifier si les bouton sont coché
 //    var quizzNbr="";
 //   function checkreponse(){
-//    
+//       compteur==0;
+//    if(compteur<=3){
 //    
 //var testQuizz=true;
 //    if ($("#rep"+quizzNbr+"").attr("data-reponse"+quizzNbr+"")=="0"){
@@ -99,9 +109,10 @@ function check (){
 //        $("#t_quizz"+quizzNbr+"").css({"color":"red"});
 ////          console.log("no"+quizzNbr+"")
 //        
-//    }    
+//    }
+//        compteur++;    }
 //    };
-    
+//    
     
     var testQuizz1=true;
     if ($("#rep1").attr("data-reponse1")=="0"){

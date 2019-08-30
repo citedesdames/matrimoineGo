@@ -110,7 +110,7 @@
             //création d'une modale
            console.log( score);
             
-            pop_up('<center>Ton score est de '+score+'.</center>','Etape suivante','drag.php?id=<?php echo $_GET['id']; ?>&amp;score='+score,false,false);
+            pop_up('','<center>Ton score est de '+score+'.</center>','Etape suivante','drag.php?id=<?php echo $_GET['id']; ?>&amp;score='+score,false,false);
         
         }    
         
@@ -122,7 +122,7 @@
 
         $(document).ready(function() {
             
-            pop_up("<?php echo $accueil_jeu; ?><a id='intro' class='buto' >VOIR REGLE</a>","","",true,false);
+            pop_up("","<?php echo $accueil_jeu; ?><a id='intro' class='buto' >VOIR REGLE</a>","","",true,false);
             
             devoileCarte();
         // initialisation du score
@@ -150,8 +150,10 @@
 
         <?php
 //creation du menu femme (jcdd_contenu)
-        $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice_femme,indice_lieu, photo_lieu, photo_lieu_source, photo_lieu_licence, date_naissance, date_mort, question_quizz, reponse1, reponse2, reponse3, ok_reponse1, ok_reponse2, ok_reponse3 FROM jcdd_contenu WHERE jeu = ? ORDER BY RAND();";
+        $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice_femme,indice_lieu, photo_lieu, photo_lieu_source, photo_lieu_licence, date_naissance, date_mort, question_quizz, reponse1, reponse2, reponse3, ok_reponse1, ok_reponse2, ok_reponse3, biographie FROM jcdd_contenu WHERE jeu = ? ORDER BY RAND();";
         
+        $titreFemme='var titre =["","","","","",""];';
+        $biographie='var bio =["","","","",""];';
         
         $req = $link->prepare($sql);
         $req -> execute([($_GET['id'])]);
@@ -166,15 +168,22 @@
                 $balise_A_ouvrante='<a href=\\"'.$data['photo_lieu_source'].' \\"rel=\\"follow\\" target=\\"_blank\\">';
 
             }
+            $titreFemme.='titre['.$data['id'].']="'.$data["femme"].'";';
+            $biographie.='bio['.$data['id'].']="<p>'.$data["biographie"].'</p>";';
+                
             echo '<div  id="p'.$data['id'].'"'.$intro.' class="relative"><img src="'.$data['photo_femme'].'" class="photoFemme" id="i'.$data['id'].'" alt="'.$data['femme'].'"><img class="questionMark" id="f'.$data['id'].'" src="img/icon/question-markB.png" alt="bouton qui est-ce" title="qui est-ce ?">
+
+
 
 <script>
 $("#f'.$data['id'].'").click(function() {
-            pop_up( "<p><strong style=\"color:#FC706D; font-size:1.5rem;margin:2px;\">'.$data['femme'].' ('.$data['date_naissance'].'-'.$data['date_mort'].')</strong><br>'.str_replace('"','\\"',$data['indice_femme']).'</p>","","",true,false);    
+            pop_up("<span style=\"color:#FC706D; font-size:1.5rem;margin:2px;\">'.$data['femme'].'</span>","<p>'.str_replace('"','\\"',$data['indice_femme']).'</p>","","",true,false);    
             });
             
+            
+            
              $(document).on("click","#m'.$data['id'].'",function(){
-                pop_up("'.$data['indice_lieu'].'<br><img class=\"imgIndiceLieu\" src=\"'.$data['photo_lieu'].'\" alt=\"\"><div class=\"center\"><br>'.$balise_A_ouvrante.$data['photo_lieu_licence'].$balise_A_fermante.'</div><h2>Bonus Quizz</h2> <h4 style=\"margin:0;\">'.str_replace('"','\\"',$data['question_quizz']).'</h4><br><input type=\"checkbox\" id=\"rep1\" name=\"rep1\" data-reponse1=\"'.$data['ok_reponse1'].'\"><label id=\"t_quizz1\" for=\"rep1\">'.$data['reponse1'].'</label><br><input type=\"checkbox\" id=\"rep2\" name=\"rep2\"data-reponse2=\"'.$data['ok_reponse2'].'\"><label id=\"t_quizz2\" for=\"rep2\">'.$data['reponse2'].'</label><br><input type=\"checkbox\" id=\"rep3\" name=\"rep3\"data-reponse3=\"'.$data['ok_reponse3'].'\"><label id=\"t_quizz3\" for=\"rep3\">'.$data['reponse3'].'</label><br><input class=\"butSol\" type=\"submit\" value=\"Solution\">","","",true,true);
+                pop_up("","'.$data['indice_lieu'].'<br><img class=\"imgIndiceLieu\" src=\"'.$data['photo_lieu'].'\" alt=\"\"><div class=\"center\"><br>'.$balise_A_ouvrante.$data['photo_lieu_licence'].$balise_A_fermante.'</div><h2>Bonus Quizz</h2> <h4 style=\"margin:0;\">'.str_replace('"','\\"',$data['question_quizz']).'</h4><br><input type=\"checkbox\" id=\"rep1\" name=\"rep1\" data-reponse1=\"'.$data['ok_reponse1'].'\"><label id=\"t_quizz1\" for=\"rep1\">'.$data['reponse1'].'</label><br><input type=\"checkbox\" id=\"rep2\" name=\"rep2\"data-reponse2=\"'.$data['ok_reponse2'].'\"><label id=\"t_quizz2\" for=\"rep2\">'.$data['reponse2'].'</label><br><input type=\"checkbox\" id=\"rep3\" name=\"rep3\"data-reponse3=\"'.$data['ok_reponse3'].'\"><label id=\"t_quizz3\" for=\"rep3\">'.$data['reponse3'].'</label><br><input class=\"butSol\" type=\"submit\" value=\"Solution\">","","",true,true);
 
             });
 </script>
@@ -220,7 +229,10 @@ $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice_femm
 
     <div id="map" style="align-content: center;justify-content:center;height:90vh; margin-top:10vh; margin-bottom:auto"></div>
     <script type="text/javascript">$(document).ready(function() {
-
+            <?php echo $biographie; 
+                  echo $titreFemme; 
+            ?>
+            
     $('.relative').draggable({
             scroll: false,
             containment: ".body3",
@@ -330,6 +342,13 @@ $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice_femm
                     meilleurMarker.removeClass('markerB');
                     meilleurMarker.css('background-image',"url("+ui.helper.context.firstElementChild.currentSrc+")");
                         
+                         
+                         //insereee
+                         pop_up('<span style=\"color:#FC706D; font-size:1.5rem;margin:2px;\">'+titre[$(this).attr("id").replace("p","")]+' ',''+bio[$(this).attr("id").replace("p","")]+'','','',true,true);
+                         
+//                         pop_up(""titre[$(this).attr("id").replace("p","")]"",""bio[$(this).attr("id").replace("p","")]"","","",true,true);
+                         console.log(bio);
+                         
 
                          
 

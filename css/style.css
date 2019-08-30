@@ -308,15 +308,17 @@ p{
     overflow-y: auto;
 }
 .onglet{
-    height: 5vh;
+    height: 40px;
     display: block;
     position: relative;
     border-bottom: 1px solid rgba(1,2,2,0.3);
     padding: 5px;
     margin: 0;
+    font-family: 'Semplicita';
 }
 .onglet1{
-    height: 5vh;
+    font-family: 'Semplicita';
+    height: 40px;
     top: 15vh;
     left: 2.5%;
     width: 95%;
@@ -328,6 +330,7 @@ p{
     padding: 5px;
     margin: 0;
 }
+
 
 
 .fixed{
@@ -377,17 +380,16 @@ p{
 }
 
 .close {
-    display: block;
-    margin-left: auto;
+    position: fixed;
     padding:  8px;
-    left: 0px;
+    right: 5px;
     width: 32px;
 }
 .close1 {
-    display: block;
+    position: fixed;
     margin-left: auto;
     padding:  8px;
-    left: 0px;
+    right: 15px;
     width: 32px;
 }
 
