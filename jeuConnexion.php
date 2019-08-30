@@ -8,6 +8,8 @@ $link = new PDO('mysql:host=127.0.0.1;dbname=jcdd', 'root', '', array(PDO::MYSQL
 
 $clefApiMapbox= 'clef_mapbox';
 
+$messageScore="Votre score est de ";
+
 $bienvenue=" <p><strong>Bienvenue sur MatrimoineGo !</strong></p><p>Grâce à MatrimoineGo tu vas pouvoir connaître les grandes artistes du premier arrondissement de Paris. Le but est de retrouver quelle femme correspond à quel emplacement sur la carte.</p><p>Tu peux le faire depuis chez toi ou en allant sur place:</p>";
 
 $accueil_jeu="<p>Relie chaque portait de chaque femme en le déplaçant avec ton doigt, mais attention à ton score ! Si tu te trompes celui-ci descendra, par contre si tu réussis il augmentera ! Tu peux t'aider des indices en appuyant sur le point d'interrogation en haut des photos de femme ou en appuyant sur les marqueurs sur la carte. Bonne chance !</p>";

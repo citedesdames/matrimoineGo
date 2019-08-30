@@ -71,7 +71,13 @@ $(document).on("click",".close",function() {
                 $('.modalGrande').remove();
                 $(this).parent().parent().remove();
                 
+                 if(nbrElementPoint==5){
+                //niveau terminé
+                
+                    niveauTerminer();
 
+            }
+        
             })
 }
 function check (){

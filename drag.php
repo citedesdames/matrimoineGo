@@ -82,7 +82,9 @@ function finNiveau(){
     }
       
     // Affichage d'une fenêtre modale avec le score et le message final
-    pop_up("<div class=\"modalFin\"><div><p>Vous avez fait "+erreur+" erreurs : il fallait rassembler les créatrices de la catégorie «&nbsp;<?php echo $categorieA;?>&nbsp;» (<?php echo $femmesCategorieA;?>) et de la catégorie «&nbsp;<?php echo $categorieB;?>&nbsp;» (<?php echo $femmesCategorieB;?>).<br/><?php echo $texte_fin;?></p></div><div><p>Votre score final est de "+scoreMj+"<br/><b>"+message_felicitation+"</b></p></div><center></center>","Retour à la liste des jeux","index.php",false,true);
+    var pluriel="";
+    if (scoreMj>1){pluriel="s";}
+    pop_up("<center style='color:#FC706D; font-size:1.5rem;margin:2px;'>Score final : "+scoreMj+"</center>","<div class=\"modalFin\"><div><p>Vous avez fait "+erreur+" erreur"+pluriel+" : il fallait rassembler les créatrices de la catégorie «&nbsp;<?php echo $categorieA;?>&nbsp;» (<?php echo $femmesCategorieA;?>) et de la catégorie «&nbsp;<?php echo $categorieB;?>&nbsp;» (<?php echo $femmesCategorieB;?>).<br/><?php echo $texte_fin;?></p></div><div><p><br/><b>"+message_felicitation+"</b></p></div><center></center>","Retour à la liste des jeux","index.php",false,true);
 
 }
 
@@ -124,7 +126,7 @@ while($data = $req -> fetch()){
 <script type="text/javascript">$(document).ready(function(){
 
 // Affichage du message d'accueil              
-pop_up("<?php echo $accueil_drag ?>","","",true,false);
+pop_up("","<?php echo $accueil_drag ?>","","",true,false);
               
 // Fermeture de toute fenêtre modale ouverte quand on clique sur la croix de la fenêtre
         

@@ -2,22 +2,26 @@
 <html lang="fr">
 
 <head>
-  
-    <link src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/introjs.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/intro.min.js"></script>
-  
-<!--   <link src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/introjs-rtl.min.css" rel="stylesheet">-->
+
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="description" content="MatrimoineGo">
+    
+    <?php
+        
+        //----------chargement du site soit local soit université---------------------------
+        include ('jeuConnexion.php');
+        
+        //----------chargement du site soit local soit université--------------------------
+    
+        ?>
+    
+    
     <title>
-        <?php
-    $titreJeu = "Jeu Cité des dames";
-    echo $titreJeu;
-    ?>
+        <?php echo $titreJeu;?>
     </title>
-    <!--    <link rel="shortcut icon" href="">-->
+        <link rel="shortcut icon" href="img/favicon.ico">
 
 <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>-->
 <!------------------------------jquery-------------------------->
@@ -41,27 +45,12 @@
 
    <script src="js/matrimoineGo.js"></script>
    <link rel="stylesheet" href="css/style.css">
-   
-<!--------------------------   intro.js   ------------------------------------->
- 
-   
-        <?php
-        
-        //----------chargement du site soit local soit université---------------------------
-        include ('jeuConnexion.php');
-        
-        //----------chargement du site soit local soit université--------------------------
-    
-        ?>
         
    
    
     <script type="text/javascript">
 
-        $(document).on("click","#intro",function() {
-            console.log("intro lancé");
-            introJs().start();
-        });
+       
         
         function distance(x1,y1,x2,y2){
                 
@@ -86,12 +75,7 @@
                         
                         score = score + 1; 
                         
-                         if(nbrElementPoint==5){
-                //niveau terminé
-                
-            niveauTerminer();
-
-            }
+                        
                     }
                     if(point=="-1"){
                         $(".negatif").css({"color":"red"}); 
@@ -110,7 +94,7 @@
             //création d'une modale
            console.log( score);
             
-            pop_up('','<center>Ton score est de '+score+'.</center>','Etape suivante','drag.php?id=<?php echo $_GET['id']; ?>&amp;score='+score,false,false);
+            pop_up('','<center><?php echo $messageScore ?>'+score+'.</center>','&Eacute;tape suivante','drag.php?id=<?php echo $_GET['id']; ?>&amp;score='+score,false,false);
         
         }    
         
@@ -122,7 +106,7 @@
 
         $(document).ready(function() {
             
-            pop_up("","<?php echo $accueil_jeu; ?><a id='intro' class='buto' >VOIR REGLE</a>","","",true,false);
+            pop_up("","<?php echo $accueil_jeu; ?>","","",true,false);
             
             devoileCarte();
         // initialisation du score
@@ -155,9 +139,9 @@
         $titreFemme='var titre =["","","","","",""];';
         $biographie='var bio =["","","","",""];';
         
+        
         $req = $link->prepare($sql);
         $req -> execute([($_GET['id'])]);
-        $intro=' data-step="1" data-intro="Texte pas important"';
 
         while($data = $req -> fetch()){
             
@@ -171,7 +155,7 @@
             $titreFemme.='titre['.$data['id'].']="'.$data["femme"].'";';
             $biographie.='bio['.$data['id'].']="<p>'.$data["biographie"].'</p>";';
                 
-            echo '<div  id="p'.$data['id'].'"'.$intro.' class="relative"><img src="'.$data['photo_femme'].'" class="photoFemme" id="i'.$data['id'].'" alt="'.$data['femme'].'"><img class="questionMark" id="f'.$data['id'].'" src="img/icon/question-markB.png" alt="bouton qui est-ce" title="qui est-ce ?">
+            echo '<div  id="p'.$data['id'].'" class="relative"><img src="'.$data['photo_femme'].'" class="photoFemme" id="i'.$data['id'].'" alt="'.$data['femme'].'"><img class="questionMark" id="f'.$data['id'].'" src="img/icon/question-markB.png" alt="bouton qui est-ce" title="qui est-ce ?">
 
 
 
@@ -183,14 +167,10 @@ $("#f'.$data['id'].'").click(function() {
             
             
              $(document).on("click","#m'.$data['id'].'",function(){
-                pop_up("","'.$data['indice_lieu'].'<br><img class=\"imgIndiceLieu\" src=\"'.$data['photo_lieu'].'\" alt=\"\"><div class=\"center\"><br>'.$balise_A_ouvrante.$data['photo_lieu_licence'].$balise_A_fermante.'</div><h2>Bonus Quizz</h2> <h4 style=\"margin:0;\">'.str_replace('"','\\"',$data['question_quizz']).'</h4><br><input type=\"checkbox\" id=\"rep1\" name=\"rep1\" data-reponse1=\"'.$data['ok_reponse1'].'\"><label id=\"t_quizz1\" for=\"rep1\">'.$data['reponse1'].'</label><br><input type=\"checkbox\" id=\"rep2\" name=\"rep2\"data-reponse2=\"'.$data['ok_reponse2'].'\"><label id=\"t_quizz2\" for=\"rep2\">'.$data['reponse2'].'</label><br><input type=\"checkbox\" id=\"rep3\" name=\"rep3\"data-reponse3=\"'.$data['ok_reponse3'].'\"><label id=\"t_quizz3\" for=\"rep3\">'.$data['reponse3'].'</label><br><input class=\"butSol\" type=\"submit\" value=\"Solution\">","","",true,true);
+                pop_up("","'.$data['indice_lieu'].'<br><img class=\"imgIndiceLieu\" src=\"'.$data['photo_lieu'].'\" alt=\"\"><div class=\"center\"><br>'.$balise_A_ouvrante.$data['photo_lieu_licence'].$balise_A_fermante.'</div><h2>Bonus Quizz</h2> <h4 style=\"margin:0;\">'.str_replace('"','\\"',$data['question_quizz']).'</h4><br><input type=\"checkbox\" id=\"rep1\" name=\"rep1\" data-reponse1=\"'.$data['ok_reponse1'].'\"><label id=\"t_quizz1\" for=\"rep1\">'.str_replace('"','\\"',$data['reponse1']).'</label><br><input type=\"checkbox\" id=\"rep2\" name=\"rep2\"data-reponse2=\"'.$data['ok_reponse2'].'\"><label id=\"t_quizz2\" for=\"rep2\">'.str_replace('"','\\"',$data['reponse2']).'</label><br><input type=\"checkbox\" id=\"rep3\" name=\"rep3\"data-reponse3=\"'.$data['ok_reponse3'].'\"><label id=\"t_quizz3\" for=\"rep3\">'.str_replace('"','\\"',$data['reponse3']).'</label><br><input class=\"butSol\" type=\"submit\" value=\"Solution\">","","",true,true);
 
             });
 </script>
-            
-            
-               
-
             </div>';
            
             }
@@ -213,12 +193,6 @@ $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice_femm
         $moyennelg/=$compteur;
         $moyennelt/=$compteur;
         
-//        echo ('<script>
-//        console.log('.$moyennelg.');
-//        console.log('.$moyennelt.');
-//        console.log('.$compteur.');
-//
-//        </script>')
         ?>
         
     </div>
@@ -246,13 +220,10 @@ $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice_femm
             start: function( event, ui ) {
              xCreatrice=$(this).css("left");
              yCreatrice=$(this).css("top");
-//                console.log("start top is :" + ui.position.top)
-//                console.log("start left is :" + ui.position.left)
                 ui.helper.context.style.opacity="0.7";
                 
             },
             drag: function(event, ui) {
-//                console.log('draging.....');
             var distanceMini;
             var compteurDrag=0;
             var meilleurMarker;
@@ -274,14 +245,12 @@ $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice_femm
                      compteurDrag++;
                     })
 
-//                console.log('d: '+distanceMini);
                 if(distanceMini <50){
                     $(".marker").addClass('markerR');
                     $(".marker").removeClass('markerB');
                     meilleurMarker.addClass('markerB');
                     meilleurMarker.removeClass('markerR');
                     console.log("markeur");
-//                    console.log(ui.helper.context.src);
                     console.log(ui.helper.context.firstElementChild.currentSrc);
                     console.log(ui);
                     
@@ -289,17 +258,12 @@ $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice_femm
                 else{
                     meilleurMarker.addClass('markerR');
                     meilleurMarker.removeClass('markerB');
-//                    console.log('rouge');
 
                 }
                 
             },
             stop: function( event, ui ) {
-                imgRevient=true;
-
-//                console.log("stop top is :" + ui.position.top)
-//                console.log("stop left is :" + ui.position.left)
-//                
+                imgRevient=true;    
                 ui.helper.context.style.opacity="1";
 
                
@@ -325,9 +289,7 @@ $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice_femm
                      $(this).children().hide();
                      console.log('cache');
                     })
-//                console.log('d: '+distanceMini);
                 if(distanceMini <50){
-//                    console.log($(this).attr("id").replace("i","")+meilleurMarker.attr("id").replace("m","")); 
                     
                     
                      if($(this).attr("id").replace("p","")==meilleurMarker.attr("id").replace("m","")){
@@ -346,8 +308,6 @@ $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice_femm
                          //insereee
                          pop_up('<span style=\"color:#FC706D; font-size:1.5rem;margin:2px;\">'+titre[$(this).attr("id").replace("p","")]+' ',''+bio[$(this).attr("id").replace("p","")]+'','','',true,true);
                          
-//                         pop_up(""titre[$(this).attr("id").replace("p","")]"",""bio[$(this).attr("id").replace("p","")]"","","",true,true);
-                         console.log(bio);
                          
 
                          
@@ -367,7 +327,6 @@ $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice_femm
                     //l'image de l'artiste retourne
                     ui.helper.context.style.display="block";
                     meilleurMarker.removeClass('markerB');
-//                    meilleurMarker.css('background-image',ui.helper.context.src);
                     meilleurMarker.addClass('markerR');
                     $("#Tscore").html(score);
                 }
@@ -457,17 +416,7 @@ $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice_femm
 
                     $req = $link -> prepare($sql);
                     $req -> execute([$_GET['id']]);
-//                    $x= $lg-10;
-//                    $y= $lt-10;
-                    
                     while ($data = $req -> fetch()) {
-                            
-//                    $a=$xn-$x;
-//                    $b=$yn-$y;
-//                    $a=$a*$a;
-//                    $b=$b*$b;
-//                    $c= Math.sqrt($a+$b);
-                        
                         
                         echo "  {
                             type: 'Feature',id:".$data['id'] ." ,
@@ -496,17 +445,12 @@ $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice_femm
                
                 // make a marker for each feature and add to the map
                 var mark= new mapboxgl.Marker(el, {
-//                        draggable: true,
                     })
                     .setLngLat(marker.geometry.coordinates)
                     .addTo(map);
                 mark._element.id="m"+marker.id;
-//                console.log(marker);
 
             });
-//            if($c<10){
-//                      el.className='marker1' ;     
-//                        }
 
 
         });

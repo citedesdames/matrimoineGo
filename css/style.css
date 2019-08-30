@@ -98,8 +98,7 @@ a{
 }
 
 .bas {
-    margin:
-        text-align: center;
+    text-align: center;
 
 }
 
@@ -116,7 +115,6 @@ a{
     color: white;
     position: absolute;
     text-align: center;
-    /*    max-width: 40%;*/
     top: 42%;
     transform: translateY(-50%);
     right: 5%;
@@ -131,8 +129,6 @@ a{
 .centre {
     display: flex;
     justify-content: center;
-    /*    transform: scale(1.1);
-    transition: 500ms;*/
 }
 
 .box {
@@ -160,11 +156,8 @@ a{
     margin-top: 0;
     z-index: 10;
     display: flex;
-    /*    justify-content: space-around;*/
     justify-content: center;
     max-height: 10vh;
-
-
 }
 
 .photoFemme {
@@ -174,8 +167,6 @@ a{
     z-index: 10;
     max-width: 100%;
     height: 10vh;
-   
-
 }
 
 #map {
@@ -190,29 +181,6 @@ a{
     right: 0px;
     bottom: 0px;
 }
-
-
-/*
-.interoN {
-    position: fixed;
-    background-color: black;
-    border: solid 2px #791C1B;
-    width: 80%;
-    text-align: center;
-    min-height: 20vh;
-    color: white;
-    right: 10%;
-    left: 10%;
-    top: 40vh;
-    padding: 10px;
-    z-index: 9;
-    display: none;
-}
-
-.interoY {
-    display: block !important;
-}
-*/
 .imgIndiceLieu{
     padding: 10px;
     position:relative; 
@@ -258,12 +226,6 @@ a{
     font-size: 1rem;
     z-index: 15;
     position: relative;
-    /*
-    transform: translateY(-30px);
-    animation-delay: 2000ms;
-*/
-    /*    color:red;*/
-
 }
 
 .modal {
@@ -308,7 +270,7 @@ p{
     overflow-y: auto;
 }
 .onglet{
-    height: 40px;
+    height: 42px;
     display: block;
     position: relative;
     border-bottom: 1px solid rgba(1,2,2,0.3);
@@ -318,7 +280,7 @@ p{
 }
 .onglet1{
     font-family: 'Semplicita';
-    height: 40px;
+    height: 42px;
     top: 15vh;
     left: 2.5%;
     width: 95%;
@@ -348,7 +310,6 @@ p{
     margin-top: 50px;
     text-decoration: none;
     padding: 5px;
-    
     margin-left: auto;
     margin-right: auto;
     background-color: #010202;
@@ -387,9 +348,8 @@ p{
 }
 .close1 {
     position: fixed;
-    margin-left: auto;
     padding:  8px;
-    right: 15px;
+    right: 3.5%;
     width: 32px;
 }
 
@@ -431,24 +391,13 @@ p{
     color: white;
 }
 
-
-/*--------------------------checkbox------------------------------------------*/
-
-/*
-.checked{
-    height: 50px;
-    background-image: url(../img/icon/check-square-solid.svg);
-    
-    
-}
-*/
 /*---------------------------------------drag php---------------------------------------------------*/
 .body4 {
     background-color: rgba(1,2,2,0.3);
     margin: 0;
     padding: 0;
     width: 100%;
-    height: 100%;
+   overflow:hidden; 
 
 
 }
@@ -486,7 +435,7 @@ p{
 .contain {
     display: flex;
     background-color: #E4F2F1;
-    height: 80vh;
+    height: 90vh;
 }
 
 .cat1 {
@@ -514,21 +463,15 @@ p{
 
 .nbrErreur {
     display: block;
-    margin-left: auto;
-    margin-right: auto;
+    position: fixed;
+    z-index: 10;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 80vh;
     background-color: #010202;
     color: white;
     padding: 10px;
     border: 0px;
     font-size: 1.2rem;
     font-family: 'Semplicita-bold';
-/*
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-    padding: 10px;
-    font-size: 1rem;
-    font-family: 'Semplicita-bold';
-    width: 40%;
-*/
 }

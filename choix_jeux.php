@@ -38,15 +38,10 @@
    <h1 class="titreBlanc">Choix du jeu </h1>
    
     <div class="container">
-        <?php
-    
-        //----------chargement du site soit local soit université---------------------------
-
-            include ('jeuConnexion.php');
-        //----------chargement du site soit local soit université---------------------------
+    <?php
 
     
-   $sql = "SELECT id_jeu,nom_jeu,photo FROM jcdd_jeu ";
+$sql = "SELECT id_jeu,nom_jeu,photo FROM jcdd_jeu ";
 // On prépare la requête avant l'envoi :
 $req = $link->prepare($sql);
 $req -> execute();
