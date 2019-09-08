@@ -15,6 +15,13 @@
 
 
 
+$(document).on("click",".popupclose",function() {
+    $(this).parent().parent().remove();
+    if(nbrElementPoint==5){
+        //niveau terminé
+        finNiveau1();
+    }
+})
 
 
 function pop_up (titre,texte,txtButton,urlButton,croix,grandeModal){
@@ -23,10 +30,8 @@ function pop_up (titre,texte,txtButton,urlButton,croix,grandeModal){
     
     var boutonSuite='';
     
-    
-    
-    
-    var imgCroix='<img class="close'+codeModal+'" src="img/icon/close.png" alt="fermer la fenêtre" title="fermer">';
+    //var imgCroix='<img class="close'+codeModal+'" src="img/icon/close.png" alt="fermer la fenêtre" title="fermer">';
+    var imgCroix='<img class="popupclose" src="img/icon/close.png" alt="fermer la fenêtre" title="Fermer">';
     
 //    if(){
 //        titre="<p><strong style=\"color:#FC706D; font-size:1.5rem;margin:2px;\">'.$data['femme'].' ('.$data['date_naissance'].'-'.$data['date_mort'].')</strong></p>";
@@ -36,9 +41,9 @@ function pop_up (titre,texte,txtButton,urlButton,croix,grandeModal){
         imgCroix="";
         boutonSuite='<a class="buto" href="'+urlButton+'">'+txtButton+'</a>';
     }
-    var onglet='<div class="onglet'+codeModal+'" style="display:"none"><span>'+titre+'</span>'+imgCroix+'</div>';
+    var onglet = imgCroix+'<div>'+titre+'</div>';
 
-    
+    $(".popup").remove();
     $(".modal").remove();
     $(".modalGrande").remove();
     $(".onglet1").remove();
@@ -48,12 +53,12 @@ function pop_up (titre,texte,txtButton,urlButton,croix,grandeModal){
  
     if(grandeModal){
        //inserer fonction
-        $("body").append( '<div class="remove">'+onglet+'<div class="modalGrande"  style="display:none"><div class="padding1">'+texte+boutonSuite+'</div></div>');
-        $(".modalGrande").fadeIn(200);
+        $("body").append( '<div class="popup" style="display:none"><div class="popupbar">'+onglet+'</div><div class="popuplongtext">'+texte+boutonSuite+'</div></div>');
+        $(".popup").fadeIn(200);
         $(".onglet1").fadeIn(200);
     }else{
-    $("body").append('<div class="modal"  style="display:none">'+onglet+'<div>'+texte+boutonSuite+'</div></div>');
-    $(".modal").fadeIn(200);
+        $("body").append('<div class="popup"  style="display:none"><div class="popupbar">'+onglet+'</div><div class="popuptext">'+texte+boutonSuite+'</div></div>');
+        $(".popup").fadeIn(200);
     }
     close();
     
@@ -63,24 +68,62 @@ function close(){
     
 
 $(document).on("click",".close",function() {
-                $(this).parent().parent().remove();
-                
+    $(this).parent().parent().remove();
+})
 
-            })
-    $(document).on("click",".close1",function() {
-                $('.modalGrande').remove();
-                $(this).parent().parent().remove();
-                
-                 if(nbrElementPoint==5){
-                //niveau terminé
-                
-                    niveauTerminer();
+$(document).on("click",".close1",function() {
+    $('.modalGrande').remove();
+    $(this).parent().parent().remove();
+    if(nbrElementPoint==5){
+        //niveau terminé
+        finNiveau1();
+    }
+})
 
+}
+
+function verifieReponse (numero){
+    var testQuizz=true;
+    $("input").prop("checked",false);
+    if ($("#rep"+numero).attr("data-reponse"+numero)=="1"){
+       $("#t_quizz"+numero).css({"font-weight":"bold"});
+       $("#t_quizz"+numero).prepend("Bonne réponse : ");
+    }    
+    /*
+    if ($("#rep"+numero).attr("data-reponse"+numero)=="0"){
+        testQuizz=false;
+        
+          if (testQuizz==$("#rep"+numero).prop("checked")){
+          $("#t_quizz"+numero).css({"color":"red"});
+//          console.log("noooo1");
+          }
+          else{
+          $("#t_quizz"+numero).css({"color":"green"});
+//          console.log("oui1");
             }
         
-            })
+    } 
+    else{
+        $("#t_quizz"+numero).css({"text-decoration": "underline"});
+        $("#t_quizz"+numero).before("Vraie réponse : ");
+    }
+
+    if (testQuizz==$("#rep"+numero).prop("checked")){
+          $("#t_quizz"+numero).css({"color":"green"});
+//          console.log("yesssss1");
+          }
+    else{
+        $("#t_quizz"+numero).css({"color":"red"});
+//          console.log("no1")
+        
+    }
+    */
+
 }
+
 function check (){
+
+
     
 ////     cette partie est pour verifier si les bouton sont coché
 //    var quizzNbr="";
@@ -120,101 +163,9 @@ function check (){
 //    };
 //    
     
-    var testQuizz1=true;
-    if ($("#rep1").attr("data-reponse1")=="0"){
-        testQuizz1=false;
-        
-          if (testQuizz1==$("#rep1").prop("checked")){
-          $("#t_quizz1").css({"color":"red"});
-//          console.log("noooo1");
-          }
-          else{
-          $("#t_quizz1").css({"color":"green"});
-//          console.log("oui1");
-            }
-        
-    } 
-    else{
-        $("#t_quizz1").css({"text-decoration": "underline"});
-        
-    }
-    
-    if (testQuizz1==$("#rep1").prop("checked")){
-          $("#t_quizz1").css({"color":"green"});
-//          console.log("yesssss1");
-          }
-    else{
-        $("#t_quizz1").css({"color":"red"});
-//          console.log("no1")
-        
-    }
-
-    
-    
-    
-    
-    var testQuizz2=true;
-    if ($("#rep2").attr("data-reponse2")=="0"){
-        testQuizz2=false;
-        
-          if (testQuizz2==$("#rep2").prop("checked")){
-          $("#t_quizz2").css({"color":"red"});
-          console.log("noooo2");
-          }
-          else{
-          $("#t_quizz2").css({"color":"green"});
-          console.log("oui2");
-            }
-        
-    } 
-    else{
-        $("#t_quizz2").css({"text-decoration": "underline"});
-        
-    }
-    
-    if (testQuizz2==$("#rep2").prop("checked")){        
-          $("#t_quizz2").css({"color":"green"});
-//          console.log("yesssss2");
-          }
-    else{
-        $("#t_quizz2").css({"color":"red"});
-//          console.log("no2")
-        
-    }
-    
-  
-    
-    
-    var testQuizz3=true;
-    if ($("#rep3").attr("data-reponse3")=="0"){
-        testQuizz3=false;
-        
-          if (testQuizz3==$("#rep3").prop("checked")){
-          $("#t_quizz3").css({"color":"red"});
-          console.log("noooo3");
-          }
-          else{
-          $("#t_quizz3").css({"color":"green"});
-          console.log("oui3");
-            }
-        
-    } 
-    else{
-        $("#t_quizz3").css({"text-decoration": "underline"});
-        
-        }
-        if (testQuizz3==$("#rep3").prop("checked")){
-        $("#t_quizz3").css({"color":"green"});
-          console.log("yesssss3");
-          }
-        else{
-        $("#t_quizz3").css({"color":"red"});
-          console.log("no3")
-        
-    }
-    
-    
-    
+verifieReponse(1);
+verifieReponse(2);
+verifieReponse(3);    
     
     
     

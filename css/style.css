@@ -248,7 +248,13 @@ a{
     padding: 20px;
 }
 p{
-    padding: 2px 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+
 }
 
 .padding1{
@@ -256,6 +262,82 @@ p{
     overflow-y: auto;
 
 }
+
+
+.popup{
+    background-color:white;
+    border:1px solid black;
+    position:fixed;
+    height:90vh;
+    left:5vh;
+    right:5vh;
+    top:5vh;
+    bottom:5vh;
+    padding:0px;
+    border-radius:5px;
+    z-index:100;
+    overflow:hidden;
+    font-family:'Semplicita';
+}
+
+.popupbar{
+    position:relative;
+    top:0px;
+    left:0px;
+    margin:0px;
+    padding:1em;
+    border-radius:5px;
+    height:3em;
+}
+
+.popupbar p{
+    padding:0px;
+    margin:0px;
+    margin-block-start: 0px;
+    margin-block-end: 0px;    
+}
+
+.popuplongtext{
+    position:absolute;
+    top:3em;
+    left:0px;
+    bottom:0px;
+    right:0px;
+    padding:1em;
+    margin:0px;
+    overflow-y:scroll;
+    overflow-x: hidden;
+}
+
+.popuptext{
+    position:absolute;
+    top:3em;
+    left:0px;
+    bottom:0px;
+    right:0px;
+    padding:1em;
+    margin:0px;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.popuptext p{
+    padding:0px;
+    padding-bottom:1em;
+    margin:0px;
+    margin-block-start: 0px;
+    margin-block-end: 0px;    
+}
+
+.popupclose{
+    float:right;
+    display:block;
+    width:1em;
+    margin-right:1em;
+    margin-left:1em;
+}
+
+
 .modalGrande {
   
     transform: translateX(-50%);
@@ -280,6 +362,7 @@ p{
     margin: 0;
     font-family: 'Semplicita';
 }
+
 .onglet1{
     font-family: 'Semplicita';
     height: 42px;

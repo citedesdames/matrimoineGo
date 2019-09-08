@@ -65,12 +65,14 @@ var scoreMj = <?php echo intval($_GET['score']); ?>;
 var erreur = 0;
 
 // Affichage d'une fenêtre modale à la fin de cette étape du jeu
-function finNiveau(){
+function finNiveau2(){
     // Mise à jour du score en fonction du nombre d'erreurs
+    /*
     if(erreur == 0){
         scoreMj = scoreMj+3;
     }
-    scoreMj=scoreMj-erreur;
+    */
+    scoreMj=scoreMj+3-erreur;
    
     // Préparation du message final en fonction du score
     var message_felicitation = assez_bien;
@@ -83,8 +85,9 @@ function finNiveau(){
       
     // Affichage d'une fenêtre modale avec le score et le message final
     var pluriel="";
-    if (scoreMj>1){pluriel="s";}
-    pop_up("<center style='color:#FC706D; font-size:1.5rem;margin:2px;'>Score final : "+scoreMj+"</center>","<div class=\"modalFin\"><div><p>Vous avez fait "+erreur+" erreur"+pluriel+" : il fallait rassembler les créatrices de la catégorie «&nbsp;<?php echo $categorieA;?>&nbsp;» (<?php echo $femmesCategorieA;?>) et de la catégorie «&nbsp;<?php echo $categorieB;?>&nbsp;» (<?php echo $femmesCategorieB;?>).<br/><?php echo $texte_fin;?></p></div><div><p><br/><b>"+message_felicitation+"</b></p></div><center></center>","Retour à la liste des jeux","index.php",false,true);
+    if (erreur>1){pluriel="s";}
+    //pop_up("<center style='color:#FC706D; font-size:1.5rem;margin:2px;'>Score final : "+scoreMj+"</center>","<div class=\"modalFin\"><div><p><b>"+message_felicitation+"</b></p><p>Vous avez fait "+erreur+" erreur"+pluriel+" : il fallait rassembler les créatrices de la catégorie «&nbsp;<?php echo $categorieA;?>&nbsp;» (<?php echo $femmesCategorieA;?>) et de la catégorie «&nbsp;<?php echo $categorieB;?>&nbsp;» (<?php echo $femmesCategorieB;?>).<br/><?php echo $texte_fin;?></p></div><div></div><center></center>","Retour à la liste des jeux","index.php",false,true);
+    pop_up("<center style='color:#FC706D; font-size:1.5rem;margin:2px;'>Score final : "+scoreMj+"</center>","<div class=\"modalFin\"><div><p><b>"+message_felicitation+"</b></p><p>Vous avez fait "+erreur+" erreur"+pluriel+".</p><?php echo $texte_fin;?></div><div></div><center></center>","Retour à la liste des jeux","index.php",false,true);
 
 }
 
@@ -93,7 +96,7 @@ $(document).on("click",".nbrErreur",function() {
     if ($('.cat1,.cat2').length >=5){
         // Si toutes les images ont été déplacées
         $('.nbrErreur').hide();
-        finNiveau();
+        finNiveau2();
     }
    
 })
@@ -126,7 +129,7 @@ while($data = $req -> fetch()){
 <script type="text/javascript">$(document).ready(function(){
 
 // Affichage du message d'accueil              
-pop_up("","<?php echo $accueil_drag ?>","","",true,false);
+pop_up("<p><strong>Deuxième étape</strong></p>","<?php echo $accueil_drag ?>","","",true,false);
               
 // Fermeture de toute fenêtre modale ouverte quand on clique sur la croix de la fenêtre
         
