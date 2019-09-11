@@ -21,6 +21,7 @@ include ('jeuConnexion.php');
 <script src="js/matrimoineGo.js"></script>
        
 <script>   
+var nbrElementPoint = 0;
 <?php
 // Chargement des données de configuration de cette étape du jeu
 $sql1 = "SELECT categorie_1, categorie_2, photo, photo_source, photo_licence, texte_fin, score_tb, score_b, score_ab, accueil_drag FROM jcdd_jeu WHERE id_jeu= ?;";
@@ -142,13 +143,17 @@ $('.photoFemme2').draggable({
     both: true,
     
     start: function( event, ui){
+        $("body").append("<div class=\"nomCreatrice\" style=\"position:absolute;z-index:1000px;font-family: 'Semplicita';\">"+$(this).attr("alt")+"</div>")
         //console.log("start top is :" + ui.position.top)
         //console.log("start left is :" + ui.position.left)
     },
     drag: function(event, ui){
         //console.log('draging.....');    
+        $(".nomCreatrice").css({"left":parseInt(ui.offset.left)+"px","top":(parseInt(ui.position.top)-25)+"px"})
+        
     },
     stop: function(event, ui) {
+        $(".nomCreatrice").remove();
         // On lâche le portrait
         //console.log("stop top is :" + ui.position.top)
         //console.log("addition :" + (parseInt(ui.position.left) + (parseInt(ui.helper.context.clientWidth)/2)));
