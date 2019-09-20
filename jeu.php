@@ -61,13 +61,13 @@ function changeScore(point){
        $("#plurielScore").show();
     }
     // Mise à jour du lien de passage à l'étape suivante
-    $("#nextStep").attr("href","drag.php?id=<?php echo $_GET['id']; ?>&score="+score);
+    $("#nextStep").attr("href","drag.php?id=<?php echo intval($_GET['id']); ?>&score="+score);
 } 
         
 function finNiveau1(){
     // Création d'une modale
     //console.log(score);
-    pop_up('','<center><?php echo $messageScore ?>'+score+'.</center>','&Eacute;tape suivante','drag.php?id=<?php echo $_GET['id']; ?>&score='+score,false,false);
+    pop_up('','<center><?php echo $messageScore ?>'+score+'.</center>','&Eacute;tape suivante','drag.php?id=<?php echo intval($_GET['id']); ?>&score='+score,false,false);
 }    
         
 function devoileCarte(){
@@ -95,7 +95,7 @@ $sql = "SELECT id, jeu, femme, photo_femme, photo_femme_source, photo_femme_lice
 $titreFemme = 'var titre =["","","","","",""];';
 $biographie = 'var bio =["","","","",""];';
 $req = $link->prepare($sql);
-$req -> execute([($_GET['id'])]);
+$req -> execute([intval($_GET['id'])]);
 
 while($data = $req -> fetch()){        
     $balise_A_ouvrante="";
@@ -128,7 +128,7 @@ while($data = $req -> fetch()){
 //Préparation de la carte-------------
 $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice_femme ,categorie FROM jcdd_contenu WHERE jeu = ?  AND categorie>0 ORDER BY RAND()" ;
 $req = $link->prepare($sql);
-$req -> execute([$_GET['id']]);
+$req -> execute([intval($_GET['id'])]);
 $moyennelg = 0;
 $moyennelt = 0;
 $compteur = 0;
@@ -257,7 +257,7 @@ mapboxgl.accessToken = '<?php echo ($clefApiMapbox);  ?>';
 var map = new mapboxgl.Map({
     style: 'https://data.osmbuildings.org/0.2/anonymous/style.json',
     center: [ <?php echo $moyennelg; ?> , <?php echo $moyennelt; ?> ],
-    zoom: 14.5,
+    zoom: 15.3,
     pitch: 45,
     bearing: -17.6,
     container: 'map'
@@ -314,7 +314,7 @@ map.on('load', function() {
 
 $sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice_lieu, adresse ,categorie FROM jcdd_contenu WHERE jeu = ? AND categorie>0 ORDER BY RAND()";
 $req = $link -> prepare($sql);
-$req -> execute([$_GET['id']]);
+$req -> execute([intval($_GET['id'])]);
 while ($data = $req -> fetch()) {
     echo "{
         type: 'Feature',id:".$data['id'] ." ,
@@ -352,7 +352,7 @@ map.addControl(new mapboxgl.NavigationControl());
 
 <div class="score">
     <span class="Tscore"><span id="Tscore"></span> point<span id="plurielScore">s</span></span>
-    <div class="Tscore" style="position:absolute;right:20px;    "><a id="nextStep" href="drag.php?id=<?php echo $_GET['id']; ?>&amp;score=10">&Eacute;tape suivante</a></div>
+    <div class="Tscore" style="position:absolute;right:20px;    "><a id="nextStep" href="drag.php?id=<?php echo intval($_GET['id']); ?>&amp;score=10">&Eacute;tape suivante</a></div>
 </div>
 
 </body>

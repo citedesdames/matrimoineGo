@@ -27,7 +27,7 @@ var nbrElementPoint = 0;
 $sql1 = "SELECT categorie_1, categorie_2, photo, photo_source, photo_licence, texte_fin, score_tb, score_b, score_ab, accueil_drag FROM jcdd_jeu WHERE id_jeu= ?;";
 
 $req1 = $link->prepare($sql1);
-$req1 -> execute([$_GET['id']]);
+$req1 -> execute([intval($_GET['id'])]);
 
 while($donnee = $req1 -> fetch()){
     // Configuration des messages possibles en fonction du score
@@ -42,7 +42,7 @@ while($donnee = $req1 -> fetch()){
 $sql = "SELECT id, jeu, photo_femme, femme, categorie  FROM jcdd_contenu WHERE categorie >0 AND jeu=? ORDER BY RAND();";
 
 $req = $link->prepare($sql);
-$req -> execute([$_GET['id']]);
+$req -> execute([intval($_GET['id'])]);
 $femmesCategorieA = "";
 $femmesCategorieB = "";
 while($data = $req -> fetch()){
@@ -88,7 +88,7 @@ function finNiveau2(){
     var pluriel="";
     if (erreur>1){pluriel="s";}
     //pop_up("<center style='color:#FC706D; font-size:1.5rem;margin:2px;'>Score final : "+scoreMj+"</center>","<div class=\"modalFin\"><div><p><b>"+message_felicitation+"</b></p><p>Vous avez fait "+erreur+" erreur"+pluriel+" : il fallait rassembler les créatrices de la catégorie «&nbsp;<?php echo $categorieA;?>&nbsp;» (<?php echo $femmesCategorieA;?>) et de la catégorie «&nbsp;<?php echo $categorieB;?>&nbsp;» (<?php echo $femmesCategorieB;?>).<br/><?php echo $texte_fin;?></p></div><div></div><center></center>","Retour à la liste des jeux","index.php",false,true);
-    pop_up("<center style='color:#FC706D; font-size:1.5rem;margin:2px;'>Score final : "+scoreMj+"</center>","<div class=\"modalFin\"><div><p><b>"+message_felicitation+"</b></p><p>Vous avez fait "+erreur+" erreur"+pluriel+".</p><?php echo $texte_fin;?></div><div></div><center></center>","Retour à la liste des jeux","index.php",false,true);
+    pop_up("<center style='color:#FC706D; font-size:1.5rem;margin:2px;'>Score final : "+scoreMj+"</center>","<p><b>"+message_felicitation+"</b></p><p>Vous avez fait "+erreur+" erreur"+pluriel+".</p><?php echo $texte_fin;?><div></div><center></center>","Retour à la liste des jeux","index.php",false,true);
 
 }
 
@@ -117,7 +117,7 @@ $(document).on("click",".nbrErreur",function() {
 $sql = "SELECT id, jeu, photo_femme, femme, categorie  FROM jcdd_contenu WHERE categorie >0 AND jeu=? ORDER BY RAND();";
 
 $req = $link->prepare($sql);
-$req -> execute([$_GET['id']]);
+$req -> execute([intval($_GET['id'])]);
 $i=0;
 while($data = $req -> fetch()){
     // Affichage du portrait en haut de la page
@@ -143,7 +143,7 @@ $('.photoFemme2').draggable({
     both: true,
     
     start: function( event, ui){
-        $("body").append("<div class=\"nomCreatrice\" style=\"position:absolute;z-index:1000px;font-family: 'Semplicita';\">"+$(this).attr("alt")+"</div>")
+        $("body").append("<div class=\"nomCreatrice\" style=\"position:absolute;z-index:10000px;font-family:'Semplicita';\">"+$(this).attr("alt")+"</div>")
         //console.log("start top is :" + ui.position.top)
         //console.log("start left is :" + ui.position.left)
     },

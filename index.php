@@ -24,7 +24,7 @@ include ('jeuConnexion.php');
     <div class="containerBut">
         <?php echo $bienvenue; ?>
         <a href="choix_jeux.php" class="but">Commencer !</a>
-        <div class="bas"><small><i>Un <a href="https://github.com/Avgilles/jeuxCiteDesDames/">jeu</a> réalisé par <a href="http://gillesavraam.com">Gilles Avraam</a>, sur un concept d'<a href="http://matrimoinedeparis.com">Edith Vallée</a> d'après son livre <i><a href="http://matrimoinedeparis.com/">Le matrimoine de Paris : 20 itinéraires, 20 arrondissements</a> (Bonneton)</i></small>.<br/>
+        <div class="bas"><small><i>Réalisation : <a href="http://gillesavraam.com">Gilles Avraam</a> - Autrice du jeu : <a href="http://matrimoinedeparis.com">Edith Vallée</a>, d'après son livre <i><a href="http://matrimoinedeparis.com/">Le matrimoine de Paris : 20 itinéraires, 20 arrondissements</a> (Bonneton)</i></small>.<br/>
             <button class="but js-aPropos" style="background-color:#999999;">À propos...</button>
         </div>
     </div>
