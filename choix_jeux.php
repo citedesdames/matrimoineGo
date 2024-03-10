@@ -21,8 +21,8 @@
 <!--    <link rel="shortcut icon" href="">-->
     <link rel="stylesheet" href="css/style.css">
     <!------------------------------jquery-------------------------->
-<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
-<script src="http://code.jquery.com/ui/1.8.21/jquery-ui.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
+<script src="https://code.jquery.com/ui/1.8.21/jquery-ui.min.js"></script>
     
     <script src="js/matrimoineGo.js"></script>
     

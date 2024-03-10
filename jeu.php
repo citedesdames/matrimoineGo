@@ -13,8 +13,8 @@ include ('jeuConnexion.php');
     <link rel="shortcut icon" href="img/favicon.ico">
     <link rel="stylesheet" href="css/style.css?v=<?php echo (time());?>">
 <!------------------------------jquery-------------------------->
-<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
-<script src="http://code.jquery.com/ui/1.8.21/jquery-ui.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
+<script src="https://code.jquery.com/ui/1.8.21/jquery-ui.min.js"></script>
 <!------------------------CDN jquery punch----------------------->
 <script src="./js/jquery.ui.touch-punch.js"></script> 
 <!---------------------------- MapBox -------------------------->
@@ -75,7 +75,7 @@ function devoileCarte(){
 }
 
 $(document).ready(function() {
-    pop_up("<p><strong>Première étape</strong></p>","<?php echo $accueil_jeu; ?>","","",true,false);
+    pop_up("<p><strong>Première étape</strong></p>","<?php if(intval($_GET['id'])==4){echo $accueil_jeu;} else {echo str_replace(" de Rouen","",$accueil_jeu);} ?>","","",true,false);
     devoileCarte();
     
     // initialisation du score
@@ -83,6 +83,8 @@ $(document).ready(function() {
     
     map.addControl(new mapboxgl.GeolocateControl({positionOptions: {enableHighAccuracy: true},trackUserLocation: true}));
 });
+
+var quizz=[];
 </script>
 </head>
 
@@ -104,8 +106,10 @@ while($data = $req -> fetch()){
         $balise_A_fermante="</a>";
         $balise_A_ouvrante='<a href=\\"'.$data['photo_lieu_source'].' \\"rel=\\"follow\\" target=\\"_blank\\">';
     }
-    $titreFemme.='titre['.$data['id'].']="'.$data["femme"].'";';
-    $biographie.='bio['.$data['id'].']="<p><img src=\\"'.$data['photo_femme'].'\\" style=\\"float:right;margin-left:20px;\\" alt=\\"'.$data['femme'].'\\">'.$data["biographie"].'</p><p>Source du portrait : <a href=\\"'.$data['photo_femme_source'].' \\"rel=\\"follow\\" target=\\"_blank\\">'.$data['photo_femme_licence'].'</a></p>";';
+    $titreFemme.='
+    titre['.$data['id'].']="'.$data["femme"].'";';
+    $biographie.='
+    bio['.$data['id'].']="<p><img src=\\"'.$data['photo_femme'].'\\" style=\\"float:right;margin-left:20px;width:50%\\" alt=\\"'.$data['femme'].'\\">'.$data["biographie"].'</p><p>Source du portrait : <a href=\\"'.$data['photo_femme_source'].' \\"rel=\\"follow\\" target=\\"_blank\\">'.$data['photo_femme_licence'].'</a></p>";';
                 
     echo '<div  id="p'.$data['id'].'" class="relative"><img src="'.$data['photo_femme'].'" class="photoFemme" id="i'.$data['id'].'" alt="'.$data['femme'].'"><img class="questionMark" id="f'.$data['id'].'" src="img/icon/question-markB.png" alt="bouton qui est-ce" title="qui est-ce ?">
 
@@ -113,9 +117,10 @@ while($data = $req -> fetch()){
     $("#f'.$data['id'].'").click(function() {
             pop_up("<span style=\"color:#FC706D; font-size:1.1rem;margin:2px;\">'.$data['femme'].'</span>","<p>'.str_replace('"','\\"',$data['indice_femme']).'</p><p>Source du portrait : <a href=\\"'.$data['photo_femme_source'].' \\"rel=\\"follow\\" target=\\"_blank\\">'.$data['photo_femme_licence'].'</a></p>","","",true,false);    
             });
-            
+    
+    quizz['.$data['id'].'] = "<h2>Quizz</h2> <h4 style=\"margin:0;\">'.str_replace('"','\\"',$data['question_quizz']).'</h4><br><input type=\"checkbox\" id=\"rep1\" name=\"rep1\" data-reponse1=\"'.$data['ok_reponse1'].'\"><label id=\"t_quizz1\" for=\"rep1\">'.str_replace('"','\\"',$data['reponse1']).'</label><br><input type=\"checkbox\" id=\"rep2\" name=\"rep2\"data-reponse2=\"'.$data['ok_reponse2'].'\"><label id=\"t_quizz2\" for=\"rep2\">'.str_replace('"','\\"',$data['reponse2']).'</label><br><input type=\"checkbox\" id=\"rep3\" name=\"rep3\"data-reponse3=\"'.$data['ok_reponse3'].'\"><label id=\"t_quizz3\" for=\"rep3\">'.str_replace('"','\\"',$data['reponse3']).'</label><br>Plusieurs réponses sont possibles...<br><input class=\"butSol\" type=\"submit\" value=\"Solution\">"
     $(document).on("click","#m'.$data['id'].'",function(){
-        pop_up("","<strong>Indice :</strong> '.$data['indice_lieu'].'<br><img class=\"imgIndiceLieu\" src=\"'.$data['photo_lieu'].'\" alt=\"\"><div class=\"center\"><br>'.$balise_A_ouvrante.$data['photo_lieu_licence'].$balise_A_fermante.'</div><h2>Bonus Quizz</h2> <h4 style=\"margin:0;\">'.str_replace('"','\\"',$data['question_quizz']).'</h4><br><input type=\"checkbox\" id=\"rep1\" name=\"rep1\" data-reponse1=\"'.$data['ok_reponse1'].'\"><label id=\"t_quizz1\" for=\"rep1\">'.str_replace('"','\\"',$data['reponse1']).'</label><br><input type=\"checkbox\" id=\"rep2\" name=\"rep2\"data-reponse2=\"'.$data['ok_reponse2'].'\"><label id=\"t_quizz2\" for=\"rep2\">'.str_replace('"','\\"',$data['reponse2']).'</label><br><input type=\"checkbox\" id=\"rep3\" name=\"rep3\"data-reponse3=\"'.$data['ok_reponse3'].'\"><label id=\"t_quizz3\" for=\"rep3\">'.str_replace('"','\\"',$data['reponse3']).'</label><br><input class=\"butSol\" type=\"submit\" value=\"Solution\">","","",true,true);
+        pop_up("","<strong>Indice :</strong> '.$data['indice_lieu'].'<br><img class=\"imgIndiceLieu\" src=\"'.$data['photo_lieu'].'\" alt=\"\"><div class=\"center\"><br>'.$balise_A_ouvrante.$data['photo_lieu_licence'].$balise_A_fermante.'</div>","","",true,true);
     });
 </script>
 </div>';
@@ -219,8 +224,9 @@ $('.relative').draggable({
             //console.log('cache');
         })
         
+        var womanId = $(this).attr("id").replace("p","");
         if(distanceMini <50){
-            if($(this).attr("id").replace("p","") == meilleurMarker.attr("id").replace("m","")){
+            if(womanId == meilleurMarker.attr("id").replace("m","")){
             // Bonne réponse
             changeScore("+1");
             
@@ -229,9 +235,17 @@ $('.relative').draggable({
             ui.helper.context.style.display = "none";                
             meilleurMarker.removeClass('markerB');
             meilleurMarker.css('background-image',"url("+ui.helper.context.firstElementChild.currentSrc+")");
-                        
+            
             // Affichage de la biographie
-            pop_up('<span style=\"color:#FC706D; font-size:1.1rem;margin:2px;\">'+titre[$(this).attr("id").replace("p","")]+' ',''+bio[$(this).attr("id").replace("p","")]+'','','',true,true);
+            pop_up('<span style=\"color:#FC706D; font-size:1.1rem;margin:2px;\">'+titre[womanId]+' ',''+bio[womanId]+''+quizz[womanId],'','',true,true);
+            
+            // Affichage de la biographie au clic
+            $(document).off("click","#m" + womanId);
+            $("#m" + womanId).click(function() {
+               pop_up('<span style=\"color:#FC706D; font-size:1.1rem;margin:2px;\">'+titre[$(this).attr("id").replace("m","")]+' ',''+bio[$(this).attr("id").replace("m","")]+''+quizz[$(this).attr("id").replace("m","")],'','',true,true);
+            });
+            
+            
             } else{
                 // Si mauvaise réponse, -1
                 changeScore("-1");
@@ -254,13 +268,42 @@ $('.relative').draggable({
         
 // Initialisation de la carte
 mapboxgl.accessToken = '<?php echo ($clefApiMapbox);  ?>';
-var map = new mapboxgl.Map({
-    style: 'https://data.osmbuildings.org/0.2/anonymous/style.json',
-    center: [ <?php echo $moyennelg; ?> , <?php echo $moyennelt; ?> ],
-    zoom: 15.3,
-    pitch: 45,
-    bearing: -17.6,
-    container: 'map'
+
+
+
+const map = new mapboxgl.Map({
+style: 'mapbox://styles/mapbox/light-v10',
+center: [<?php
+$nbResultats = 0;
+$minLat = 360;
+$minLong = 360;
+$maxLat = -360;
+$maxLong = -360;
+$sql = "SELECT id,jeu,femme,photo_femme, femme, longitude, latitude, indice_lieu, adresse ,categorie FROM jcdd_contenu WHERE jeu = ? AND categorie>0 ORDER BY RAND()";
+$req = $link -> prepare($sql);
+$req -> execute([intval($_GET['id'])]);
+while ($data = $req -> fetch()) {
+    if($minLong > $data['longitude']){
+       $minLong = $data['longitude'];
+    }
+    if($maxLong < $data['longitude']){
+       $maxLong = $data['longitude'];
+    }
+    if($minLat > $data['latitude']){
+       $minLat = $data['latitude'];
+    }
+    if($maxLat < $data['latitude']){
+       $maxLat = $data['latitude'];
+    }
+    $nbResultats ++;
+}
+echo (($minLong + $maxLong)/2).",".(($minLat + $maxLat)/2-0.002);
+?>],
+zoom: 15.5,
+pitch: 45,
+bearing: -17.6,
+container: 'map',
+antialias: true
 });
 
 // The 'building' layer in the mapbox-streets vector source contains building-height

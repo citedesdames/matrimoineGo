@@ -12,7 +12,7 @@ include ('jeuConnexion.php');
     <title><?php echo $titreJeu; ?></title>
     <link rel="shortcut icon" href="./img/favicon.ico">
     <link rel="stylesheet" href="css/style.css">
-    <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
     <script src="./js/matrimoineGo.js"></script>
 </head>
 

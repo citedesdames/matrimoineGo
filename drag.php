@@ -13,8 +13,8 @@ include ('jeuConnexion.php');
     <link rel="shortcut icon" href="./img/favicon.ico">
     <link rel="stylesheet" href="css/style.css">
 <!------------------------- jquery ui ---------------------------->
-<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
-<script src="http://code.jquery.com/ui/1.8.21/jquery-ui.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
+<script src="https://code.jquery.com/ui/1.8.21/jquery-ui.min.js"></script>
 <!------------------------CDN jquery punch----------------------->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script> 
 <!----------------------- Matrimoine GO -------------------------->
@@ -39,7 +39,9 @@ while($donnee = $req1 -> fetch()){
 }
 
 // Récupération dans la base de données des noms de femmes dans chaque catégorie
-$sql = "SELECT id, jeu, photo_femme, femme, categorie  FROM jcdd_contenu WHERE categorie >0 AND jeu=? ORDER BY RAND();";
+$sql = "SELECT id, jeu, photo_femme, femme, categorie, photo_femme_source, photo_femme_licence, biographie FROM jcdd_contenu WHERE categorie >0 AND jeu=? ORDER BY RAND();";
+$titreFemme = 'var titre =["","","","","",""];';
+$biographie = 'var bio =["","","","",""];';
 
 $req = $link->prepare($sql);
 $req -> execute([intval($_GET['id'])]);
@@ -58,6 +60,11 @@ while($data = $req -> fetch()){
         }
         $femmesCategorieB .= $data["femme"];
     }
+    $titreFemme.='
+    titre['.$data['id'].']="'.$data["femme"].'";';
+    $biographie.='
+    bio['.$data['id'].']="<p><img src=\\"'.$data['photo_femme'].'\\" style=\\"float:right;margin-left:20px;width:50%\\" alt=\\"'.$data['femme'].'\\">'.$data["biographie"].'</p><p>Source du portrait : <a href=\\"'.$data['photo_femme_source'].' \\"rel=\\"follow\\" target=\\"_blank\\">'.$data['photo_femme_licence'].'</a></p>";';
+
 }
 
 ?>
@@ -88,7 +95,11 @@ function finNiveau2(){
     var pluriel="";
     if (erreur>1){pluriel="s";}
     //pop_up("<center style='color:#FC706D; font-size:1.5rem;margin:2px;'>Score final : "+scoreMj+"</center>","<div class=\"modalFin\"><div><p><b>"+message_felicitation+"</b></p><p>Vous avez fait "+erreur+" erreur"+pluriel+" : il fallait rassembler les créatrices de la catégorie «&nbsp;<?php echo $categorieA;?>&nbsp;» (<?php echo $femmesCategorieA;?>) et de la catégorie «&nbsp;<?php echo $categorieB;?>&nbsp;» (<?php echo $femmesCategorieB;?>).<br/><?php echo $texte_fin;?></p></div><div></div><center></center>","Retour à la liste des jeux","index.php",false,true);
-    pop_up("<center style='color:#FC706D; font-size:1.5rem;margin:2px;'>Score final : "+scoreMj+"</center>","<p><b>"+message_felicitation+"</b></p><p>Vous avez fait "+erreur+" erreur"+pluriel+".</p><?php echo $texte_fin;?><div></div><center></center>","Retour à la liste des jeux","index.php",false,true);
+    var lienRetour = "choix_jeux.php";
+    if(<?php echo intval($_GET['id']);?>==4){
+       lienRetour = "jeu.php?id=4";
+    }
+    pop_up("<center style='color:#FC706D; font-size:1.5rem;margin:2px;'>Score final : "+scoreMj+"</center>","<p><b>"+message_felicitation+"</b></p><p>Vous avez fait "+erreur+" erreur"+pluriel+" dans la deuxième étape du jeu.</p><?php echo $texte_fin;?><div></div><center></center>","Jouer à MatrimoineGo ! dans d'autres lieux",lienRetour,false,true);
 
 }
 
@@ -98,6 +109,8 @@ $(document).on("click",".nbrErreur",function() {
         // Si toutes les images ont été déplacées
         $('.nbrErreur').hide();
         finNiveau2();
+    } else {
+        alert("Il reste des femmes à répartir : toutes les femmes doivent être réparties à gauche ou à droite de l'axe vertical avant la vérification")
     }
    
 })
@@ -121,13 +134,27 @@ $req -> execute([intval($_GET['id'])]);
 $i=0;
 while($data = $req -> fetch()){
     // Affichage du portrait en haut de la page
-    echo '<span  id="i'.$i.'"><img src="'.$data['photo_femme'].'" class="photoFemme2 categorie'.$data['categorie'].'" alt="'.$data['femme'].'"></span>';
+    echo '<span  id="i'.$data["id"].'"><img src="'.$data['photo_femme'].'" class="photoFemme2 categorie'.$data['categorie'].'" alt="'.$data['femme'].'"></span>';
     
     $i++;
 }
 ?>
         
 <script type="text/javascript">$(document).ready(function(){
+<?php 
+echo $biographie; 
+echo $titreFemme; 
+?>
+
+// Détection du déplacement pour ne pas afficher la bio en cas de déplacement sans véritable clic
+var deplacement = false;
+
+// Affichage de la bio de l'autrice au clic
+$('.photoFemme2').click(function(){
+    if(!deplacement){
+        pop_up('<span style=\"color:#FC706D; font-size:1.1rem;margin:2px;\">'+titre[$(this).parent().attr("id").replace("i","")]+' ',''+bio[$(this).parent().attr("id").replace("i","")],'','',true,true);
+    }
+})
 
 // Affichage du message d'accueil              
 pop_up("<p><strong>Deuxième étape</strong></p>","<?php echo $accueil_drag ?>","","",true,false);
@@ -143,14 +170,14 @@ $('.photoFemme2').draggable({
     both: true,
     
     start: function( event, ui){
-        $("body").append("<div class=\"nomCreatrice\" style=\"position:absolute;z-index:10000px;font-family:'Semplicita';\">"+$(this).attr("alt")+"</div>")
+        $("body").append("<div class=\"nomCreatrice\">"+$(this).attr("alt")+"</div>")
         //console.log("start top is :" + ui.position.top)
         //console.log("start left is :" + ui.position.left)
+        deplacement = true;
     },
     drag: function(event, ui){
         //console.log('draging.....');    
-        $(".nomCreatrice").css({"left":parseInt(ui.offset.left)+"px","top":(parseInt(ui.position.top)-25)+"px"})
-        
+        $(".nomCreatrice").css({"left":parseInt(ui.offset.left)+"px","top":(parseInt(ui.position.top)-25)+"px"})        
     },
     stop: function(event, ui) {
         $(".nomCreatrice").remove();
@@ -190,6 +217,8 @@ $('.photoFemme2').draggable({
         if(erreur1 < erreur2){
             erreur = erreur1;
         }
+        
+        setTimeout(function(){deplacement = false;},200);
     }   
 });
 

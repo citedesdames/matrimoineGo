@@ -16,6 +16,7 @@
 
 
 $(document).on("click",".popupclose",function() {
+    $(".modalBackground").remove();
     $(this).parent().parent().remove();
     if(nbrElementPoint==5){
         //niveau terminé
@@ -23,6 +24,10 @@ $(document).on("click",".popupclose",function() {
     }
 })
 
+$(document).on("click",".modalBackground",function() {
+    $(this).next().remove();
+    $(this).remove();
+})
 
 function pop_up (titre,texte,txtButton,urlButton,croix,grandeModal){
     var codeModal="";
@@ -53,11 +58,11 @@ function pop_up (titre,texte,txtButton,urlButton,croix,grandeModal){
  
     if(grandeModal){
        //inserer fonction
-        $("body").append( '<div class="popup" style="display:none"><div class="popupbar">'+onglet+'</div><div class="popuplongtext">'+texte+boutonSuite+'</div></div>');
+        $("body").append( '<div class="modalBackground"></div><div class="popup" style="display:none"><div class="popupbar">'+onglet+'</div><div class="popuplongtext">'+texte+boutonSuite+'</div></div>');
         $(".popup").fadeIn(200);
         $(".onglet1").fadeIn(200);
     }else{
-        $("body").append('<div class="popup"  style="display:none"><div class="popupbar">'+onglet+'</div><div class="popuptext">'+texte+boutonSuite+'</div></div>');
+        $("body").append('<div class="modalBackground"></div><div class="popup" style="display:none"><div class="popupbar">'+onglet+'</div><div class="popuptext">'+texte+boutonSuite+'</div></div>');
         $(".popup").fadeIn(200);
     }
     close();

@@ -264,20 +264,31 @@ p{
 }
 
 
+.modalBackground{
+    position:fixed;
+    top:0px;
+    left:0px;
+    right:0px;
+    bottom:0px;
+    background-color:rgba(255,255,255,0.7);
+    z-index:1000;
+}
+
 .popup{
     background-color:white;
     border:1px solid black;
     position:fixed;
-    height:90vh;
+    height:85vh;
     left:5vh;
     right:5vh;
-    top:5vh;
+    top:10vh;
     bottom:5vh;
     padding:0px;
     border-radius:5px;
-    z-index:100;
+    z-index:2000;
     overflow:hidden;
     font-family:'Semplicita';
+    hyphens:auto;
 }
 
 .popupbar{
@@ -285,9 +296,13 @@ p{
     top:0px;
     left:0px;
     margin:0px;
-    padding:1em;
+    padding:0.5em;
     border-radius:5px;
     height:3em;
+}
+
+.popupbarimg{
+    padding:0.5em;
 }
 
 .popupbar p{
@@ -326,7 +341,7 @@ p{
     right:0px;
     padding:1em;
     margin:0px;
-    overflow-y: hidden;
+    overflow-y: scroll;
     overflow-x: hidden;
 }
 
@@ -567,4 +582,11 @@ p{
     border: 0px;
     font-size: 1.2rem;
     font-family: 'Semplicita-bold';
+}
+
+.nomCreatrice {
+    position:absolute;
+    z-index:10000;
+    background-color:rgba(255,255,255,0.7);
+    font-family:'Semplicita'
 }
